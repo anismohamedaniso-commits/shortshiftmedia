@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Short Shift Media — Brand Intake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=garet@400,500,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #000000;
+      --surf:   #0d0d0d;
+      --card:   #111111;
+      --pink:   #E8008A;
+      --pdim:   rgba(232,0,138,0.08);
+      --pbdr:   rgba(232,0,138,0.28);
+      --white:  #ffffff;
+      --muted:  rgba(255,255,255,0.42);
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Garet', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* subtle grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(ellipse, rgba(232,0,138,0.06) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── PROGRESS ── */
+    #bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--pink);
+      z-index: 200;
+      width: 0%;
+      transition: width 0.55s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 0 14px rgba(232,0,138,0.55);
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      padding: 1.1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(20px);
+    }
+
+    .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .logo-dot { color: var(--pink); }
+
+    .hdr-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .step-counter {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .step-counter strong { color: var(--pink); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 7.5rem 1.5rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 660px;
+    }
+
+    /* ── STEPS ── */
+    .step { display: none; }
+    .step.active {
+      display: block;
+      animation: rise 0.42s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* step head */
+    .s-eyebrow {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.8rem;
+    }
+    .s-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      text-transform: uppercase;
+      line-height: 0.93;
+      color: var(--white);
+      margin-bottom: 0.9rem;
+    }
+    .s-title .pk { color: var(--pink); }
+    .s-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2.8rem;
+      max-width: 46ch;
+    }
+
+    /* ── FIELDS ── */
+    .fields { display: flex; flex-direction: column; gap: 1.6rem; }
+
+    .field { display: flex; flex-direction: column; gap: 0.55rem; }
+
+    .field > label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .field > label .opt {
+      font-size: 0.58rem;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: var(--white);
+      font-family: 'Garet', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      padding: 0.9rem 1.05rem;
+      outline: none;
+      width: 100%;
+      border-radius: 0;
+      -webkit-appearance: none;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .field select option { background: #111; color: #fff; }
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(255,255,255,0.16); }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--pink);
+      background: rgba(232,0,138,0.04);
+    }
+    .field textarea { min-height: 108px; resize: vertical; line-height: 1.65; }
+
+    /* ── CHECKBOXES ── */
+    .cb-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+    .cb-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.22s, background 0.22s;
+    }
+    .cb-item:hover { border-color: rgba(232,0,138,0.3); }
+    .cb-item.on {
+      border-color: rgba(232,0,138,0.38);
+      background: rgba(232,0,138,0.07);
+    }
+    .cb-item input { display: none; }
+    .cb-box {
+      width: 15px; height: 15px;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .cb-item.on .cb-box {
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+    .cb-item.on .cb-box::after {
+      content: '✓';
+      font-size: 9px;
+      color: #fff;
+      font-weight: 800;
+    }
+    .cb-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.3;
+      transition: color 0.22s;
+    }
+    .cb-item.on .cb-text { color: var(--white); }
+
+    /* ── NAV ROW ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2.8rem;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      font-family: 'Garet', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      cursor: pointer;
+      padding: 0.7rem 0;
+      transition: color 0.22s;
+    }
+    .btn-back:hover { color: rgba(255,255,255,0.7); }
+    .btn-back[disabled] { opacity: 0; pointer-events: none; }
+
+    .dots {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+    }
+    .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      transition: background 0.25s, transform 0.25s;
+    }
+    .dot.on {
+      background: var(--pink);
+      transform: scale(1.5);
+    }
+
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      font-family: 'Garet', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.75rem;
+      cursor: pointer;
+      transition: opacity 0.22s, transform 0.22s, box-shadow 0.22s;
+    }
+    .btn-next:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(232,0,138,0.38);
+    }
+
+    /* ── THANK YOU ── */
+    #step-done {
+      text-align: center;
+      padding: 2rem 0 3rem;
+    }
+    .done-ring {
+      width: 68px; height: 68px;
+      border: 2px solid var(--pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2.5rem;
+      font-size: 1.6rem;
+      color: var(--pink);
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .done-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+    }
+    .done-title span { color: var(--pink); }
+    .done-body {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 40ch;
+      margin: 0 auto;
+    }
+    .done-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--pink);
+      margin: 2.2rem auto;
+    }
+    .done-contact {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 1.4rem 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ft { font-size: 0.62rem; color: rgba(255,255,255,0.14); letter-spacing: 0.1em; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      header { padding: 1rem 1.2rem; }
+      .cb-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<header>
+  <div class="logo">Short Shift Media<span class="logo-dot"> ✦</span></div>
+  <div class="hdr-right">
+    <div class="step-counter">Step <strong id="snum">1</strong> of 4</div>
+  </div>
+</header>
+
+<main>
+  <div class="wrapper">
+
+    <!-- ──────────────────────────────────────
+         STEP 1 — ABOUT YOU
+    ────────────────────────────────────────── -->
+    <div class="step active" id="step-1">
+      <p class="s-eyebrow">Section 01 — Let's Start Here</p>
+      <h2 class="s-title">About <span class="pk">You.</span></h2>
+      <p class="s-sub">Before we build anything, we need to know who we're building it with.</p>
+      <div class="fields">
+        <div class="field">
+          <label>Your Full Name</label>
+          <input type="text" id="f-name" placeholder="Ahmed Hassan" />
+        </div>
+        <div class="field">
+          <label>Your Role at the Brand</label>
+          <input type="text" id="f-role" placeholder="Founder · Marketing Manager · Creative Director..." />
+        </div>
+        <div class="field">
+          <label>Brand Name</label>
+          <input type="text" id="f-brand" placeholder="Your brand name" />
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="f-email" placeholder="you@yourbrand.com" />
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" disabled>← Back</button>
+        <div class="dots">
+          <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <button class="btn-next" onclick="next(1)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────
+         STEP 2 — YOUR BRAND
+    ────────────────────────────────────────── -->
+    <div class="step" id="step-2">
+      <p class="s-eyebrow">Section 02 — The Brand</p>
+      <h2 class="s-title">Your <span class="pk">Brand.</span></h2>
+      <p class="s-sub">Help us understand what you do, who you do it for, and where you live online.</p>
+      <div class="fields">
+        <div class="field">
+          <label>Website &amp; Main Social Handle</label>
+          <input type="text" id="f-socials" placeholder="yourbrand.com  ·  @yourbrand" />
+        </div>
+        <div class="field">
+          <label>What Does Your Brand Do? <span class="opt">2–3 sentences</span></label>
+          <textarea id="f-what" placeholder="We make / We sell / We help..."></textarea>
+        </div>
+        <div class="field">
+          <label>Industry</label>
+          <select id="f-industry">
+            <option value="" disabled selected>Select your industry</option>
+            <option>Fashion &amp; Apparel</option>
+            <option>Food &amp; Beverage</option>
+            <option>Beauty &amp; Skincare</option>
+            <option>Fitness &amp; Wellness</option>
+            <option>Tech &amp; Lifestyle</option>
+            <option>Home &amp; Interior</option>
+            <option>Hospitality &amp; Events</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Who Is Your Target Customer?</label>
+          <textarea id="f-audience" placeholder="Age range, lifestyle, what they care about, where they spend time..."></textarea>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="back(2)">← Back</button>
+        <div class="dots">
+          <div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <button class="btn-next" onclick="next(2)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────
+         STEP 3 — CONTENT VISION
+    ────────────────────────────────────────── -->
+    <div class="step" id="step-3">
+      <p class="s-eyebrow">Section 03 — The Creative</p>
+      <h2 class="s-title">Content <span class="pk">Vision.</span></h2>
+      <p class="s-sub">This is where your creative direction starts to take shape. Be as honest as you like.</p>
+      <div class="fields">
+        <div class="field">
+          <label>What Feeling Should Your Content Leave People With?</label>
+          <textarea id="f-feeling" placeholder="Inspired, premium, rebellious, trustworthy, fun, aspirational..."></textarea>
+        </div>
+        <div class="field">
+          <label>Which Services Excite You Most? <span class="opt">Pick all that apply</span></label>
+          <div class="cb-grid" id="cb-services">
+            <label class="cb-item"><input type="checkbox" value="Cinematic Reels" /><div class="cb-box"></div><span class="cb-text">Cinematic Reels</span></label>
+            <label class="cb-item"><input type="checkbox" value="UGC Video" /><div class="cb-box"></div><span class="cb-text">UGC Video</span></label>
+            <label class="cb-item"><input type="checkbox" value="Creative Social Posts" /><div class="cb-box"></div><span class="cb-text">Creative Social Posts</span></label>
+            <label class="cb-item"><input type="checkbox" value="Event & Brand Coverage" /><div class="cb-box"></div><span class="cb-text">Event &amp; Brand Coverage</span></label>
+            <label class="cb-item"><input type="checkbox" value="Product Cinematics" /><div class="cb-box"></div><span class="cb-text">Product Cinematics</span></label>
+            <label class="cb-item"><input type="checkbox" value="Lifestyle & Branding Shoots" /><div class="cb-box"></div><span class="cb-text">Lifestyle &amp; Branding Shoots</span></label>
+            <label class="cb-item"><input type="checkbox" value="AI Image & Video" /><div class="cb-box"></div><span class="cb-text">AI Image &amp; Video</span></label>
+            <label class="cb-item"><input type="checkbox" value="Creative Direction" /><div class="cb-box"></div><span class="cb-text">Creative Direction</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Name 1–2 Brands or Creators Whose Content You Love</label>
+          <input type="text" id="f-inspo" placeholder="Nike, @SomeCreator, ZARA, Glossier..." />
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="back(3)">← Back</button>
+        <div class="dots">
+          <div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div>
+        </div>
+        <button class="btn-next" onclick="next(3)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────
+         STEP 4 — LAST DETAILS
+    ────────────────────────────────────────── -->
+    <div class="step" id="step-4">
+      <p class="s-eyebrow">Section 04 — Final Details</p>
+      <h2 class="s-title">Last <span class="pk">Details.</span></h2>
+      <p class="s-sub">Two quick questions so we come to the first meeting with the right ideas already prepared.</p>
+      <div class="fields">
+        <div class="field">
+          <label>Any Upcoming Launches, Events, or Moments We Should Know About?</label>
+          <textarea id="f-upcoming" placeholder="New product drop in March, Ramadan campaign, store opening, seasonal push..."></textarea>
+        </div>
+        <div class="field">
+          <label>Any Visual Styles or Directions You Want to Avoid? <span class="opt">Optional</span></label>
+          <input type="text" id="f-avoid" placeholder="Overly corporate, very dark tones, fast-paced edits..." />
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="back(4)">← Back</button>
+        <div class="dots">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div>
+        </div>
+        <button class="btn-next" onclick="submit()">Submit →</button>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────
+         THANK YOU
+    ────────────────────────────────────────── -->
+    <div class="step" id="step-done">
+      <div class="done-ring">✦</div>
+      <h2 class="done-title">You're All <span>Set.</span></h2>
+      <p class="done-body">
+        We have everything we need. We'll review your answers before we meet so we arrive with ideas — not just questions.
+      </p>
+      <div class="done-divider"></div>
+      <p class="done-contact">SHORT SHIFT MEDIA &nbsp;·&nbsp; CAIRO, EGYPT &nbsp;·&nbsp; SHORTSHIFTMEDIA.TECH</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p class="ft">SHORT SHIFT MEDIA — BRAND INTAKE FORM</p>
+  <p class="ft">hello@shortshiftmedia.tech</p>
+</footer>
+
+<script>
+  // ── CHECKBOX TOGGLE ──
+  document.querySelectorAll('.cb-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const cb = item.querySelector('input');
+      cb.checked = !cb.checked;
+      item.classList.toggle('on', cb.checked);
+    });
+  });
+
+  // ── PROGRESS ──
+  function setProgress(step, total = 4) {
+    const pct = ((step - 1) / total) * 100;
+    document.getElementById('bar').style.width = pct + '%';
+    document.getElementById('snum').textContent = Math.min(step, total);
+  }
+
+  // ── NAVIGATION ──
+  function showStep(id) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function next(from) {
+    showStep(from + 1 > 4 ? 'done' : from + 1);
+    setProgress(from + 1);
+  }
+
+  function back(from) {
+    showStep(from - 1);
+    setProgress(from - 1);
+  }
+
+  // ── SUBMIT ──
+  function submit() {
+    const services = [...document.querySelectorAll('#cb-services input:checked')]
+      .map(c => c.value).join(', ') || 'None selected';
+
+    const data = {
+      name:     document.getElementById('f-name').value,
+      role:     document.getElementById('f-role').value,
+      brand:    document.getElementById('f-brand').value,
+      email:    document.getElementById('f-email').value,
+      socials:  document.getElementById('f-socials').value,
+      what:     document.getElementById('f-what').value,
+      industry: document.getElementById('f-industry').value,
+      audience: document.getElementById('f-audience').value,
+      feeling:  document.getElementById('f-feeling').value,
+      services,
+      inspo:    document.getElementById('f-inspo').value,
+      upcoming: document.getElementById('f-upcoming').value,
+      avoid:    document.getElementById('f-avoid').value,
+    };
+
+    // ─────────────────────────────────────────────────────────────────
+    // TO CONNECT THIS FORM:
+    // Option A — Formsubmit (free, no backend needed):
+    //   Replace this comment block with:
+    //
+    //   const form = document.createElement('form');
+    //   form.action = 'https://formsubmit.co/hello@shortshiftmedia.tech';
+    //   form.method = 'POST';
+    //   Object.entries(data).forEach(([k,v]) => {
+    //     const i = document.createElement('input');
+    //     i.type = 'hidden'; i.name = k; i.value = v;
+    //     form.appendChild(i);
+    //   });
+    //   document.body.appendChild(form);
+    //   form.submit();
+    //
+    // Option B — Any backend / Zapier / Make / Airtable webhook:
+    //   fetch('YOUR_ENDPOINT', { method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(data) });
+    // ─────────────────────────────────────────────────────────────────
+
+    console.log('Short Shift Media — Brand Intake:', data);
+
+    // Show confirmation
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-done').classList.add('active');
+    document.getElementById('bar').style.width = '100%';
+    document.getElementById('snum').textContent = '4';
+  }
+
+  // Init
+  setProgress(1);
+</script>
+
+</body>
+</html>
