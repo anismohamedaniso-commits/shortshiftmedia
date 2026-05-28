@@ -88,15 +88,12 @@
       backdrop-filter: blur(20px);
     }
 
-    .logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--white);
+    .logo img {
+      height: 52px;
+      width: auto;
+      mix-blend-mode: screen;
+      display: block;
     }
-    .logo-dot { color: var(--pink); }
 
     .hdr-right {
       display: flex;
@@ -403,7 +400,7 @@
 <div id="bar"></div>
 
 <header>
-  <div class="logo">Short Shift Media<span class="logo-dot"> ✦</span></div>
+  <a href="/" class="logo"><img src="assets/logos-bg/2.png" alt="Short Shift Media" /></a>
   <div class="hdr-right">
     <div class="step-counter">Step <strong id="snum">1</strong> of 4</div>
   </div>
@@ -631,29 +628,21 @@
       avoid:    document.getElementById('f-avoid').value,
     };
 
-    // ─────────────────────────────────────────────────────────────────
-    // TO CONNECT THIS FORM:
-    // Option A — Formsubmit (free, no backend needed):
-    //   Replace this comment block with:
-    //
-    //   const form = document.createElement('form');
-    //   form.action = 'https://formsubmit.co/hello@shortshiftmedia.tech';
-    //   form.method = 'POST';
-    //   Object.entries(data).forEach(([k,v]) => {
-    //     const i = document.createElement('input');
-    //     i.type = 'hidden'; i.name = k; i.value = v;
-    //     form.appendChild(i);
-    //   });
-    //   document.body.appendChild(form);
-    //   form.submit();
-    //
-    // Option B — Any backend / Zapier / Make / Airtable webhook:
-    //   fetch('YOUR_ENDPOINT', { method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(data) });
-    // ─────────────────────────────────────────────────────────────────
-
-    console.log('Short Shift Media — Brand Intake:', data);
+    const form = document.createElement('form');
+    form.action = 'https://formsubmit.co/hello@shortshiftmedia.tech';
+    form.method = 'POST';
+    const extras = {
+      _subject: `Brand Intake: ${data.brand || data.name}`,
+      _captcha: 'false',
+      _next: window.location.href,
+    };
+    Object.entries({ ...extras, ...data }).forEach(([k, v]) => {
+      const i = document.createElement('input');
+      i.type = 'hidden'; i.name = k; i.value = v;
+      form.appendChild(i);
+    });
+    document.body.appendChild(form);
+    form.submit();
 
     // Show confirmation
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
