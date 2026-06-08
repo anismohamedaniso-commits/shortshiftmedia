@@ -1816,15 +1816,13 @@
     <div class="reveal d2">
       <form
         class="contact-form"
-        action="https://formsubmit.co/hello@shortshift.media"
+        action="https://api.web3forms.com/submit"
         method="POST"
         id="contact-form"
       >
-        <!-- Formsubmit config -->
-        <input type="hidden" name="_subject" value="New enquiry from Short Shift Media website" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" value="about:blank" />
-        <input type="text"   name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="access_key" value="3baead95-faee-416b-9f39-67f0230d1087" />
+        <input type="hidden" name="subject" value="New enquiry from Short Shift Media website" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
 
         <div class="form-row">
           <div class="form-group">
@@ -1992,7 +1990,8 @@
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
-        if (res.ok || res.status === 200) {
+        const json = await res.json();
+        if (json.success) {
           form.reset();
           status.textContent = 'Your message is on its way. We will be in touch within 24 hours.';
           status.classList.add('show');
