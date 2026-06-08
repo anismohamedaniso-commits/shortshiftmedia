@@ -629,12 +629,11 @@
     };
 
     const form = document.createElement('form');
-    form.action = 'https://formsubmit.co/hello@shortshift.media';
+    form.action = 'https://api.web3forms.com/submit';
     form.method = 'POST';
     const extras = {
-      _subject: `Brand Intake: ${data.brand || data.name}`,
-      _captcha: 'false',
-      _next: window.location.href,
+      access_key: '3baead95-faee-416b-9f39-67f0230d1087',
+      subject: `Brand Intake: ${data.brand || data.name}`,
     };
     Object.entries({ ...extras, ...data }).forEach(([k, v]) => {
       const i = document.createElement('input');
