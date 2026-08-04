@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Short Shift Media | Premium Cinematic Agency</title>
   <meta name="description" content="A premium creative agency specialising in cinematic content that commands attention across social platforms." />
   <link rel="icon" type="image/png" href="assets/logos/1.png" />
@@ -1012,20 +1012,52 @@
     }
     .lb-close {
       position: fixed;
-      top: 1.6rem; right: 1.8rem;
+      top: calc(1.6rem + env(safe-area-inset-top));
+      right: 1.8rem;
       width: 46px; height: 46px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(15,15,15,0.62);
+      border: 1px solid rgba(255,255,255,0.28);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
       color: var(--white);
       cursor: pointer;
       display: grid;
       place-items: center;
       z-index: 2001;
+      -webkit-tap-highlight-color: transparent;
       transition: background 0.25s, transform 0.25s;
     }
     .lb-close:hover { background: var(--magenta); transform: rotate(90deg); }
+    .lb-close:active { transform: scale(0.92); }
     .lb-close svg { width: 20px; height: 20px; }
+
+    /* Mobile: keep the player clear of the close button and screen edges */
+    @media (max-width: 600px) {
+      .lightbox { align-items: flex-start; padding: 0; }
+      .lb-stage {
+        margin-top: calc(3.9rem + env(safe-area-inset-top));
+        margin-bottom: calc(0.8rem + env(safe-area-inset-bottom));
+        max-height: none;
+      }
+      .lb-stage .lb-video {
+        width: auto;
+        max-width: 94vw;
+        height: min(calc(100vh - 5.6rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)), calc(94vw * 16 / 9));
+      }
+      .lb-stage .lb-video {
+        height: min(calc(100dvh - 5.6rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)), calc(94vw * 16 / 9));
+      }
+      .lb-stage img {
+        max-width: 94vw;
+        max-height: calc(100dvh - 5.6rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+      }
+      .lb-close {
+        top: calc(0.7rem + env(safe-area-inset-top));
+        right: 0.9rem;
+        width: 42px; height: 42px;
+      }
+    }
 
     /* ── CONTACT ── */
     #contact {
