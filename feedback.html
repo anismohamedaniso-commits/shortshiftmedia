@@ -40,9 +40,10 @@
 
     /* header */
     .fb-head { text-align:center; margin-bottom: clamp(2rem,6vw,3rem); }
-    .fb-logo { height:38px; width:auto; margin-bottom:2rem; opacity:0.95; }
+    .fb-logo-link { display:inline-block; line-height:0; margin-bottom:1.4rem; }
+    .fb-logo { display:block; height:clamp(72px,18vw,104px); width:auto; margin:0 auto; }
     .fb-eyebrow {
-      display:inline-block; font-size:0.66rem; font-weight:700;
+      display:block; font-size:0.66rem; font-weight:700;
       letter-spacing:0.3em; text-transform:uppercase; color:var(--magenta);
       margin-bottom:1rem;
     }
@@ -167,8 +168,8 @@
 
     <form id="fb-form">
       <div class="fb-head">
-        <a href="/" aria-label="Short Shift Media">
-          <img src="assets/logos-bg/2.png" alt="Short Shift Media" class="fb-logo" />
+        <a href="/" class="fb-logo-link" aria-label="Short Shift Media">
+          <img src="assets/logos/2.png" alt="Short Shift Media" class="fb-logo" width="110" height="110" />
         </a>
         <span class="fb-eyebrow">Monthly Feedback</span>
         <h1 class="fb-title">How Did We<br><span class="signal">Do This Month?</span></h1>
