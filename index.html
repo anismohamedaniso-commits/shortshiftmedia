@@ -263,6 +263,7 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
   .frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 52%,rgba(0,0,0,.88) 100%)}
   .snd{display:grid;place-items:center;position:absolute;z-index:2;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18)}
   .snd svg{width:18px;height:18px;fill:#fff}
+  .case-media .frame{pointer-events:none;cursor:default}
   .case-body{grid-area:stack;position:relative;z-index:2;pointer-events:none;padding:18px 20px 22px;gap:0;justify-content:space-between;height:100%}
   .case-body p{display:none}
   .case-logo{display:block;width:auto;align-self:flex-start}
@@ -373,7 +374,7 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
     <article class="case" aria-labelledby="c1">
       <div class="case-head"><span class="kicker">Golf &amp; tennis apparel</span><h3 id="c1">Beyond Reason</h3></div>
       <div class="case-media">
-        <button class="frame" type="button" data-case="br" data-film="br-r1" aria-label="Play Beyond Reason, her first swing"><video autoplay muted loop playsinline preload="none" poster="media/poster/br-r1.jpg" data-src="media/silent/br-r1.mp4"></video></button>
+        <button class="frame" type="button" data-case="br" data-film="br-r1" aria-label="Play Beyond Reason, her first swing"><video data-seq="br-r1,br-r2,br-r6" autoplay muted loop playsinline preload="none" poster="media/poster/br-r1.jpg" data-src="media/silent/br-r1.mp4"></video></button>
         <button class="frame" type="button" data-case="br" data-film="br-r2" aria-label="Play Beyond Reason, father and son"><video autoplay muted loop playsinline preload="none" poster="media/poster/br-r2.jpg" data-src="media/silent/br-r2.mp4"></video></button>
         <button class="frame" type="button" data-case="br" data-film="br-r6" aria-label="Play Beyond Reason, off the course"><video autoplay muted loop playsinline preload="none" poster="media/poster/br-r6.jpg" data-src="media/silent/br-r6.mp4"></video></button>
       </div>
@@ -399,7 +400,7 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
     <article class="case" aria-labelledby="c3">
       <div class="case-head"><span class="kicker">Medical careers platform · GCC</span><h3 id="c3">Doctors Gulf</h3></div>
       <div class="case-media">
-        <button class="frame" type="button" data-case="dg" data-film="aya" aria-label="Play Doctors Gulf presenter reel"><video autoplay muted loop playsinline preload="none" poster="media/poster/aya.jpg" data-src="media/silent/aya.mp4"></video></button>
+        <button class="frame" type="button" data-case="dg" data-film="aya" aria-label="Play Doctors Gulf presenter reel"><video data-seq="aya,motion3d" autoplay muted loop playsinline preload="none" poster="media/poster/aya.jpg" data-src="media/silent/aya.mp4"></video></button>
         <button class="frame" type="button" data-case="dg" data-film="motion3d" aria-label="Play Doctors Gulf 3D product motion"><video autoplay muted loop playsinline preload="none" poster="media/poster/motion3d.jpg" data-src="media/silent/motion3d.mp4"></video></button>
         <div class="frame"><img src="media/img/d-dg-screen-sm.webp" srcset="media/img/d-dg-screen-sm.webp 560w, media/img/d-dg-screen.webp 1100w" sizes="(max-width:899px) 214px, 20vw" alt="Doctors Gulf, your next role is one screen away" loading="lazy"></div>
       </div>
@@ -557,7 +558,18 @@ let ty=null,lock=0;
 pl.addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
 pl.addEventListener('touchend',e=>{if(ty==null)return;const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>50)go(d>0?1:-1);ty=null},{passive:true});
 pl.addEventListener('wheel',e=>{e.preventDefault();const n=Date.now();if(n<lock||Math.abs(e.deltaY)<18)return;lock=n+700;go(e.deltaY>0?1:-1)},{passive:false});
-document.addEventListener('click',e=>{const f=e.target.closest('button.frame');if(f)open(f.dataset.case,f.dataset.film)});
+document.addEventListener('click',e=>{const f=e.target.closest('button.frame');if(f&&!phone.matches)open(f.dataset.case,f.dataset.film)});
+/* phone: client cards are showcase only, each plays its films one after another on a loop */
+const frames=[...document.querySelectorAll('.case-media .frame')];
+const seqs=[...document.querySelectorAll('video[data-seq]')].map(v=>({v,s:v.dataset.seq.split(','),i:0}));
+function phoneMode(){const m=phone.matches;
+  frames.forEach(f=>{f.tabIndex=m?-1:0;m?f.setAttribute('aria-hidden','true'):f.removeAttribute('aria-hidden')});
+  seqs.forEach(q=>{q.v.loop=!m;if(!m&&q.i){q.i=0;q.v.poster='media/poster/'+q.s[0]+'.jpg';q.v.dataset.src='media/silent/'+q.s[0]+'.mp4';if(q.v.getAttribute('src'))q.v.src=q.v.dataset.src}})}
+phoneMode();phone.addEventListener('change',phoneMode);
+seqs.forEach(q=>q.v.addEventListener('ended',()=>{const v=q.v;
+  if(!phone.matches){v.currentTime=0;v.play().catch(()=>{});return}
+  q.i=(q.i+1)%q.s.length;const id=q.s[q.i];
+  v.poster='media/poster/'+id+'.jpg';v.dataset.src='media/silent/'+id+'.mp4';v.src=v.dataset.src;v.muted=true;v.play().catch(()=>{})}));
 })();
 </script>
 </body>
