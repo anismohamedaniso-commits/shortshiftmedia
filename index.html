@@ -264,6 +264,8 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
   .snd{display:grid;place-items:center;position:absolute;z-index:2;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18)}
   .snd svg{width:18px;height:18px;fill:#fff}
   .case-media .frame{pointer-events:none;cursor:default}
+  .frame video.seq-b{position:absolute;inset:0;opacity:0;transition:opacity .45s ease}
+  .frame video.seq-b.on{opacity:1}
   .case-body{grid-area:stack;position:relative;z-index:2;pointer-events:none;padding:18px 20px 22px;gap:0;justify-content:space-between;height:100%}
   .case-body p{display:none}
   .case-logo{display:block;width:auto;align-self:flex-start}
@@ -292,6 +294,7 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
   *{transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
 </style>
+<link rel="preload" as="image" href="media/poster/hero.jpg" media="(max-width: 899px)">
 </head>
 <body>
 
@@ -336,7 +339,8 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 <div class="page">
 <section class="hero" id="top" aria-label="Short Shift Media">
   <img class="hero-media hero-img" src="media/img/d-6-xl.webp" alt="Beyond Reason crew laughing in a golf cart" fetchpriority="high">
-  <video class="hero-media hero-vid" id="hero-vid" autoplay muted loop playsinline preload="none" poster="media/poster/br-r3.jpg" data-src="media/silent/br-r3.mp4" aria-hidden="true"></video>
+  <video class="hero-media hero-vid" id="hero-vid" autoplay muted loop playsinline preload="none" poster="media/poster/hero.jpg" data-src="media/silent/hero.mp4" aria-hidden="true"></video>
+  <script>if(matchMedia("(max-width: 899px)").matches){var h=document.getElementById("hero-vid");h.muted=true;h.preload="auto";h.src=h.dataset.src;h.play&&h.play().catch(function(){})}</script>
   <div class="hero-copy">
     <div>
       <span class="mono">Frame 03A — Beyond Reason</span>
@@ -506,12 +510,14 @@ const phone=matchMedia('(max-width: 899px)');
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   const v=e.target;
   if(v.id==='hero-vid'&&!phone.matches)return;
-  if(e.isIntersecting){if(!v.getAttribute('src'))v.src=v.dataset.src;v.muted=true;const p=v.play();p&&p.catch(()=>{})}
-  else v.pause();
+  if(!v.getAttribute('src'))v.src=v.dataset.src;
+  const t=v._q&&v._q.b&&phone.matches?v._q.cur:v;
+  if(e.isIntersecting){t.muted=true;const p=t.play();p&&p.catch(()=>{})}
+  else t.pause();
 }),{rootMargin:'200px 0px'});
 vids.forEach(v=>io.observe(v));
 /* iPhone Low Power Mode blocks autoplay until the first touch: start what's on screen then */
-const kick=()=>{vids.forEach(v=>{if(!v.getAttribute('src'))return;if(v.id==='hero-vid'&&!phone.matches)return;const r=v.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight&&v.paused&&document.getElementById('player').hidden)v.play().catch(()=>{})})};
+const kick=()=>{vids.forEach(v=>{if(!v.getAttribute('src'))return;if(v.id==='hero-vid'&&!phone.matches)return;const t=v._q&&v._q.b&&phone.matches?v._q.cur:v;const r=v.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight&&t.paused&&document.getElementById('player').hidden)t.play().catch(()=>{})})};
 ['touchstart','touchend','click','scroll'].forEach(t=>addEventListener(t,kick,{passive:true}));
 /* floating WhatsApp shows once the opening screen is scrolled past */
 const wa=document.querySelector('.wa-float'),hero=document.getElementById('top');
@@ -561,15 +567,27 @@ pl.addEventListener('wheel',e=>{e.preventDefault();const n=Date.now();if(n<lock|
 document.addEventListener('click',e=>{const f=e.target.closest('button.frame');if(f&&!phone.matches)open(f.dataset.case,f.dataset.film)});
 /* phone: client cards are showcase only, each plays its films one after another on a loop */
 const frames=[...document.querySelectorAll('.case-media .frame')];
-const seqs=[...document.querySelectorAll('video[data-seq]')].map(v=>({v,s:v.dataset.seq.split(','),i:0}));
+const seqs=[...document.querySelectorAll('video[data-seq]')].map(v=>{const q={a:v,b:null,s:v.dataset.seq.split(','),i:0,cur:v,nxt:null,busy:false};v._q=q;return q});
+const film=id=>'media/silent/'+id+'.mp4';
+function prep(q){const n=q.s[(q.i+1)%q.s.length];q.nxt.poster='media/poster/'+n+'.jpg';if(q.nxt.dataset.id!==n){q.nxt.dataset.id=n;q.nxt.src=film(n);q.nxt.load()}}
+function swap(q){if(q.busy||!phone.matches)return;q.busy=true;
+  const from=q.cur,to=q.nxt;to.currentTime=0;to.muted=true;
+  const go=()=>{q.b.classList.toggle('on',to===q.b);q.cur=to;q.nxt=from;q.i=(q.i+1)%q.s.length;
+    setTimeout(()=>{from.pause();prep(q);q.busy=false},600)};
+  const p=to.play();p?p.then(go).catch(()=>{q.busy=false}):go()}
+function setup(q){if(q.b)return;const b=document.createElement('video');
+  b.className='seq-b';b.muted=true;b.defaultMuted=true;b.setAttribute('muted','');b.playsInline=true;b.setAttribute('playsinline','');b.preload='auto';
+  q.a.after(b);q.b=b;q.nxt=b;
+  [q.a,b].forEach(v=>{v.addEventListener('timeupdate',()=>{if(v===q.cur&&v.duration&&v.duration-v.currentTime<.5)swap(q)});
+    v.addEventListener('ended',()=>{if(v===q.cur)swap(q)})});
+  const ready=()=>{if(q.a.getAttribute('src'))prep(q)};q.a.addEventListener('playing',ready,{once:true});ready()}
 function phoneMode(){const m=phone.matches;
   frames.forEach(f=>{f.tabIndex=m?-1:0;m?f.setAttribute('aria-hidden','true'):f.removeAttribute('aria-hidden')});
-  seqs.forEach(q=>{q.v.loop=!m;if(!m&&q.i){q.i=0;q.v.poster='media/poster/'+q.s[0]+'.jpg';q.v.dataset.src='media/silent/'+q.s[0]+'.mp4';if(q.v.getAttribute('src'))q.v.src=q.v.dataset.src}})}
+  seqs.forEach(q=>{q.a.loop=!m;
+    if(m)setup(q);
+    else if(q.b){q.b.pause();q.b.classList.remove('on');q.cur=q.a;q.nxt=q.b;
+      if(q.i){q.i=0;q.a.poster='media/poster/'+q.s[0]+'.jpg';q.a.dataset.src=film(q.s[0]);if(q.a.getAttribute('src'))q.a.src=q.a.dataset.src}}})}
 phoneMode();phone.addEventListener('change',phoneMode);
-seqs.forEach(q=>q.v.addEventListener('ended',()=>{const v=q.v;
-  if(!phone.matches){v.currentTime=0;v.play().catch(()=>{});return}
-  q.i=(q.i+1)%q.s.length;const id=q.s[q.i];
-  v.poster='media/poster/'+id+'.jpg';v.dataset.src='media/silent/'+id+'.mp4';v.src=v.dataset.src;v.muted=true;v.play().catch(()=>{})}));
 })();
 </script>
 </body>
