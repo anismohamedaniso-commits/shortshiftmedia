@@ -521,7 +521,11 @@ const kick=()=>{vids.forEach(v=>{if(!v.getAttribute('src'))return;if(v.id==='her
 ['touchstart','touchend','click','scroll'].forEach(t=>addEventListener(t,kick,{passive:true}));
 /* floating WhatsApp shows once the opening screen is scrolled past */
 const wa=document.querySelector('.wa-float'),hero=document.getElementById('top');
-new IntersectionObserver(([e])=>wa.classList.toggle('show',!e.isIntersecting),{threshold:.35}).observe(hero);
+/* scroll-based with a dead zone, so Safari's toolbar resizing can't make it flicker */
+let waOn=false,waTick=false;
+const waCheck=()=>{waTick=false;const h=hero.offsetHeight,y=scrollY;
+  const on=waOn?y>h*.45:y>h*.7;if(on!==waOn){waOn=on;wa.classList.toggle('show',on)}};
+addEventListener('scroll',()=>{if(!waTick){waTick=true;requestAnimationFrame(waCheck)}},{passive:true});waCheck();
 
 /* ---------- full-screen player (with sound) ---------- */
 const pl=document.getElementById('player'),pv=document.getElementById('p-video'),pbg=document.getElementById('p-bg'),
