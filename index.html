@@ -123,7 +123,8 @@ img,video{display:block;max-width:100%}
 
 /* ---------- work ---------- */
 .work{background:rgba(10,9,10,.72);padding:clamp(72px,8vw,112px) var(--gut) clamp(48px,7vw,112px)}
-.work>h2{margin:0 0 clamp(72px,7vw,104px);font:700 clamp(76px,11vw,160px)/.86 var(--display);text-transform:uppercase}
+.work-top{margin:0 0 clamp(72px,7vw,104px)}
+.work-top h2{margin:0;font:700 clamp(76px,11vw,160px)/.86 var(--display);text-transform:uppercase}
 .cases{display:flex;flex-direction:column;gap:clamp(72px,8vw,120px)}
 .case{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:"head media" "body media";column-gap:clamp(24px,3vw,48px);align-items:end}
 .case.rev{grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"media head" "media body"}
@@ -144,7 +145,6 @@ button.frame{transition:box-shadow .35s var(--ease)}
 button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 @media (max-width:899px){
   .work{padding:72px 0 24px}
-  .work>h2{padding-inline:20px;font-size:min(76px,19.5vw);line-height:.88;margin-bottom:72px}
   .cases{gap:72px}
   .case,.case.rev{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "media" "body";row-gap:20px}
   .case-head{padding-inline:20px;gap:8px}
@@ -238,6 +238,55 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 .p-cta svg{width:22px;height:22px;fill:var(--mag)}
 @media (max-width:700px){.stage{height:100%;width:100%;border-radius:0}}
 
+.m-only,.case-logo,.snd{display:none}
+@media (max-width:899px){
+  .d-only{display:none}.m-only{display:inline}
+  .hero{height:92svh;min-height:600px}
+  .hero-copy{bottom:36px;gap:14px}
+  .hero h1{font-size:min(72px,18.5vw)}
+  .hero p{max-width:290px;font-size:17px;line-height:1.45}
+  .logos{padding:22px 0;border:0}
+  .logos-set .next{display:none}
+  .logos-set{gap:48px;padding-right:48px}
+  .lg-br{height:30px}.lg-fb{height:28px}.lg-dg{height:34px}
+  .logos-set img{opacity:.9}
+  .work{padding:48px 20px 64px;background:none}
+  .work-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
+  .work-top h2{font-size:min(64px,16.4vw);line-height:.9;padding:0;margin:0;white-space:nowrap}
+  .work-top .mono{display:block;white-space:nowrap;font-size:11px;color:var(--mute);padding-bottom:6px}
+  .cases{gap:20px}
+  .case,.case.rev{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"stack";row-gap:0;position:relative;border-radius:22px;overflow:hidden;background:#161316}
+  .case-head{display:none}
+  .case-media{grid-area:stack;display:block;padding:0;overflow:visible}
+  .case-media>.frame:not(:first-child){display:none}
+  .frame,.case-media>.frame:first-child{width:100%;flex:none;height:min(560px,70svh);aspect-ratio:auto;border-radius:0;transform:none}
+  .frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 52%,rgba(0,0,0,.88) 100%)}
+  .snd{display:grid;place-items:center;position:absolute;z-index:2;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18)}
+  .snd svg{width:18px;height:18px;fill:#fff}
+  .case-body{grid-area:stack;position:relative;z-index:2;pointer-events:none;padding:18px 20px 22px;gap:0;justify-content:space-between;height:100%}
+  .case-body p{display:none}
+  .case-logo{display:block;width:auto;align-self:flex-start}
+  .case-logo.lg-br{height:34px}.case-logo.lg-fb{height:30px}.case-logo.lg-dg{height:38px}
+  .stat{padding:0;border:0;gap:6px;margin-top:auto}
+  .stat b{font-size:60px;line-height:.9}
+  .stat span{font-size:16px;line-height:1.35;color:#fff}
+  .services{margin-top:0;padding:56px 20px;gap:0;background:var(--paper)}
+  .services h2{font-size:56px;margin-bottom:20px}
+  .services h2 .br{display:inline}
+  .svc{background:none;border-radius:0;padding:16px 0;border-top:1px solid rgba(10,9,10,.12)}
+  .contact{padding:64px 20px 40px;gap:12px}
+  .contact h2{font-size:min(64px,16.4vw);margin-bottom:20px}
+  .ct-row .pill{height:58px;font-size:16px}
+  .ct-row .pill-line{border-color:rgba(236,231,234,.5)}
+  .ct-list{flex-direction:row;justify-content:center;gap:12px;margin-top:20px;border:0}
+  .ct-list a{width:52px;height:52px;min-height:0;border:0;border-radius:50%;background:#1d191c;justify-content:center;font-size:0}
+  .ct-list a span{display:none}
+  .ct-list a svg{width:22px;height:22px;fill:var(--text)}
+  .ct-foot{justify-content:center;padding-top:28px}
+  .wa-float{opacity:0;transform:scale(.6);pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
+  .wa-float.show{opacity:1;transform:none;pointer-events:auto}
+}
+
 @media (prefers-reduced-motion:reduce){
   .logos-track{animation:none}
   *{transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -287,13 +336,13 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 <div class="page">
 <section class="hero" id="top" aria-label="Short Shift Media">
   <img class="hero-media hero-img" src="media/img/d-6-xl.webp" alt="Beyond Reason crew laughing in a golf cart" fetchpriority="high">
-  <video class="hero-media hero-vid" id="hero-vid" muted loop playsinline preload="none" poster="media/poster/br-r3.jpg" data-src="media/full/br-r3.mp4" aria-hidden="true"></video>
+  <video class="hero-media hero-vid" id="hero-vid" autoplay muted loop playsinline preload="none" poster="media/poster/br-r3.jpg" data-src="media/silent/br-r3.mp4" aria-hidden="true"></video>
   <div class="hero-copy">
     <div>
       <span class="mono">Frame 03A — Beyond Reason</span>
       <h1>Short time.<br><span class="mag">Big shift.</span></h1>
     </div>
-    <p>We move brands somewhere better, fast. Cinematic reels, product films and AI content.</p>
+    <p><span class="d-only">We move brands somewhere better, fast. Cinematic reels, product films and AI content.</span><span class="m-only">Cinematic reels, product films and AI content for brands that want to move.</span></p>
   </div>
 </section>
 
@@ -319,17 +368,17 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 
 <main>
 <section class="work" id="work" aria-labelledby="work-h">
-  <h2 id="work-h">The <span class="mag">work.</span></h2>
+  <div class="work-top"><h2 id="work-h">The <span class="mag">work.</span></h2><span class="mono m-only">Tap for sound</span></div>
   <div class="cases">
 
     <article class="case" aria-labelledby="c1">
       <div class="case-head"><span class="kicker">Golf &amp; tennis apparel</span><h3 id="c1">Beyond Reason</h3></div>
       <div class="case-media">
-        <button class="frame" type="button" data-case="br" data-film="br-r1" aria-label="Play Beyond Reason, her first swing"><video muted loop playsinline preload="none" poster="media/poster/br-r1.jpg" data-src="media/full/br-r1.mp4"></video></button>
-        <button class="frame" type="button" data-case="br" data-film="br-r2" aria-label="Play Beyond Reason, father and son"><video muted loop playsinline preload="none" poster="media/poster/br-r2.jpg" data-src="media/full/br-r2.mp4"></video></button>
-        <button class="frame" type="button" data-case="br" data-film="br-r6" aria-label="Play Beyond Reason, off the course"><video muted loop playsinline preload="none" poster="media/poster/br-r6.jpg" data-src="media/full/br-r6.mp4"></video></button>
+        <button class="frame" type="button" data-case="br" data-film="br-r1" aria-label="Play Beyond Reason, her first swing"><span class="snd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6" style="fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round"/></svg></span><video autoplay muted loop playsinline preload="none" poster="media/poster/br-r1.jpg" data-src="media/silent/br-r1.mp4"></video></button>
+        <button class="frame" type="button" data-case="br" data-film="br-r2" aria-label="Play Beyond Reason, father and son"><video autoplay muted loop playsinline preload="none" poster="media/poster/br-r2.jpg" data-src="media/silent/br-r2.mp4"></video></button>
+        <button class="frame" type="button" data-case="br" data-film="br-r6" aria-label="Play Beyond Reason, off the course"><video autoplay muted loop playsinline preload="none" poster="media/poster/br-r6.jpg" data-src="media/silent/br-r6.mp4"></video></button>
       </div>
-      <div class="case-body">
+      <div class="case-body"><img class="case-logo lg-br" src="media/clients/beyond-reason.png" alt="" aria-hidden="true">
         <p>A new golf label, filmed like it already owns the course.</p>
         <div class="stat"><b>500K+</b><span>Views in two months.</span></div>
       </div>
@@ -338,11 +387,11 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
     <article class="case rev" aria-labelledby="c2">
       <div class="case-head"><span class="kicker">Smash burger brand</span><h3 id="c2">Flippin' Burger</h3></div>
       <div class="case-media">
-        <button class="frame" type="button" data-case="fb" data-film="flippin" aria-label="Play Flippin' Burger, the smash"><video muted loop playsinline preload="none" poster="media/poster/flippin.jpg" data-src="media/full/flippin.mp4"></video></button>
+        <button class="frame" type="button" data-case="fb" data-film="flippin" aria-label="Play Flippin' Burger, the smash"><span class="snd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6" style="fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round"/></svg></span><video autoplay muted loop playsinline preload="none" poster="media/poster/flippin.jpg" data-src="media/silent/flippin.mp4"></video></button>
         <div class="frame"><img src="media/img/d-flippin-cheetos-sm.webp" srcset="media/img/d-flippin-cheetos-sm.webp 560w, media/img/d-flippin-cheetos.webp 1100w" sizes="(max-width:899px) 214px, 20vw" alt="Flippin' Burger, the Cheetos smash" loading="lazy"></div>
-        <button class="frame" type="button" data-case="fb" data-film="music" aria-label="Play Flippin' Burger, Smash and Chill"><video muted loop playsinline preload="none" poster="media/poster/music.jpg" data-src="media/full/music.mp4"></video></button>
+        <button class="frame" type="button" data-case="fb" data-film="music" aria-label="Play Flippin' Burger, Smash and Chill"><video autoplay muted loop playsinline preload="none" poster="media/poster/music.jpg" data-src="media/silent/music.mp4"></video></button>
       </div>
-      <div class="case-body">
+      <div class="case-body"><img class="case-logo lg-fb" src="media/clients/flippin.png" alt="" aria-hidden="true">
         <p>Sizzle you can hear. Food films built for the late-night scroll.</p>
         <div class="stat"><b>Again.</b><span>We made their customers come back for more.</span></div>
       </div>
@@ -351,11 +400,11 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
     <article class="case" aria-labelledby="c3">
       <div class="case-head"><span class="kicker">Medical careers platform · GCC</span><h3 id="c3">Doctors Gulf</h3></div>
       <div class="case-media">
-        <button class="frame" type="button" data-case="dg" data-film="aya" aria-label="Play Doctors Gulf presenter reel"><video muted loop playsinline preload="none" poster="media/poster/aya.jpg" data-src="media/full/aya.mp4"></video></button>
-        <button class="frame" type="button" data-case="dg" data-film="motion3d" aria-label="Play Doctors Gulf 3D product motion"><video muted loop playsinline preload="none" poster="media/poster/motion3d.jpg" data-src="media/full/motion3d.mp4"></video></button>
+        <button class="frame" type="button" data-case="dg" data-film="aya" aria-label="Play Doctors Gulf presenter reel"><span class="snd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6" style="fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round"/></svg></span><video autoplay muted loop playsinline preload="none" poster="media/poster/aya.jpg" data-src="media/silent/aya.mp4"></video></button>
+        <button class="frame" type="button" data-case="dg" data-film="motion3d" aria-label="Play Doctors Gulf 3D product motion"><video autoplay muted loop playsinline preload="none" poster="media/poster/motion3d.jpg" data-src="media/silent/motion3d.mp4"></video></button>
         <div class="frame"><img src="media/img/d-dg-screen-sm.webp" srcset="media/img/d-dg-screen-sm.webp 560w, media/img/d-dg-screen.webp 1100w" sizes="(max-width:899px) 214px, 20vw" alt="Doctors Gulf, your next role is one screen away" loading="lazy"></div>
       </div>
-      <div class="case-body">
+      <div class="case-body"><img class="case-logo lg-dg" src="media/clients/doctors-gulf.png" alt="" aria-hidden="true">
         <p>Arabic presenter reels, 3D motion and AI visuals, plus ad films and copy for India and Pakistan.</p>
         <div class="stat"><b>Signed up.</b><span>Doctors who saw our ads went on to join the platform.</span></div>
       </div>
@@ -388,9 +437,9 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
     <span class="info">hello@shortshift.media · +20 100 551 3922</span>
   </div>
   <div class="ct-list">
-    <a href="mailto:hello@shortshift.media"><span>hello@shortshift.media</span><span>Email</span></a>
-    <a href="https://instagram.com/shortshiftmediaa" target="_blank" rel="noopener"><span>@shortshiftmediaa</span><span>Instagram</span></a>
-    <a href="https://tiktok.com/@shortshiftmediaa" target="_blank" rel="noopener"><span>@shortshiftmediaa</span><span>TikTok</span></a>
+    <a aria-label="Email" href="mailto:hello@shortshift.media"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>hello@shortshift.media</span><span>Email</span></a>
+    <a aria-label="Instagram" href="https://instagram.com/shortshiftmediaa" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg><span>@shortshiftmediaa</span><span>Instagram</span></a>
+    <a aria-label="TikTok" href="https://tiktok.com/@shortshiftmediaa" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-tt"/></svg><span>@shortshiftmediaa</span><span>TikTok</span></a>
   </div>
   <div class="ct-foot">
     <div class="soc">
@@ -457,10 +506,16 @@ const phone=matchMedia('(max-width: 899px)');
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   const v=e.target;
   if(v.id==='hero-vid'&&!phone.matches)return;
-  if(e.isIntersecting){if(!v.getAttribute('src'))v.src=v.dataset.src;v.muted=true;if(!reduce){const p=v.play();p&&p.catch(()=>{})}}
+  if(e.isIntersecting){if(!v.getAttribute('src'))v.src=v.dataset.src;v.muted=true;const p=v.play();p&&p.catch(()=>{})}
   else v.pause();
 }),{rootMargin:'200px 0px'});
 vids.forEach(v=>io.observe(v));
+/* iPhone Low Power Mode blocks autoplay until the first touch: start what's on screen then */
+const kick=()=>{vids.forEach(v=>{if(!v.getAttribute('src'))return;if(v.id==='hero-vid'&&!phone.matches)return;const r=v.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight&&v.paused&&document.getElementById('player').hidden)v.play().catch(()=>{})})};
+['touchstart','touchend','click','scroll'].forEach(t=>addEventListener(t,kick,{passive:true}));
+/* floating WhatsApp shows once the opening screen is scrolled past */
+const wa=document.querySelector('.wa-float'),hero=document.getElementById('top');
+new IntersectionObserver(([e])=>wa.classList.toggle('show',!e.isIntersecting),{threshold:.35}).observe(hero);
 
 /* ---------- full-screen player (with sound) ---------- */
 const pl=document.getElementById('player'),pv=document.getElementById('p-video'),pbg=document.getElementById('p-bg'),
@@ -483,7 +538,7 @@ function open(c,film){
 }
 function close(){
   pv.pause();pv.removeAttribute('src');pv.load();pl.hidden=true;document.body.style.overflow='';
-  vids.forEach(v=>{if(!v.getAttribute('src'))return;if(v.id==='hero-vid'&&!phone.matches)return;const r=v.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight&&!reduce)v.play().catch(()=>{})});
+  vids.forEach(v=>{if(!v.getAttribute('src'))return;if(v.id==='hero-vid'&&!phone.matches)return;const r=v.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)v.play().catch(()=>{})});
   lastFocus&&lastFocus.focus&&lastFocus.focus();
 }
 const go=d=>{idx=(idx+d+list.length)%list.length;load()};
