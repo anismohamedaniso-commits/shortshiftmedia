@@ -1,658 +1,279 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Short Shift Media — Brand Intake</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link href="https://api.fontshare.com/v2/css?f[]=garet@400,500,700&display=swap" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brand Intake | Short Shift Media</title>
+<meta name="description" content="Tell Short Shift Media about your brand so we arrive at the first meeting with ideas, not just questions.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a090a">
+<link rel="icon" type="image/png" href="media/brand/favicon.png">
+<link rel="apple-touch-icon" href="media/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#0a090a; --text:#ece7ea; --soft:#d9d2d6; --mute:#a8a0a6; --line:#2c272b; --field:#141114;
+  --mag:#E8008A; --mag-hi:#ff2a9d;
+  --display:"Antonio","Arial Narrow",Impact,sans-serif;
+  --body:"Karla","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --gut:clamp(20px,4.4vw,64px);
+  --ease:cubic-bezier(.2,.7,.1,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--ink);color:var(--text);font:400 17px/1.5 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:url(media/brand/topo.webp) 0 0/1200px 1200px repeat;opacity:.035;z-index:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--mag);outline-offset:3px;border-radius:6px}
+::selection{background:var(--mag);color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.mag{color:var(--mag)}
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* header */
+.top{position:sticky;top:0;z-index:10;background:rgba(10,9,10,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top-in{display:flex;align-items:center;justify-content:space-between;height:76px;padding-inline:var(--gut)}
+.top img{height:44px;width:auto;display:block}
+.count{color:var(--mute)}.count b{font-weight:500;color:var(--text)}
+.bar{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--mag);transition:width .55s var(--ease)}
 
-    :root {
-      --black:  #000000;
-      --surf:   #0d0d0d;
-      --card:   #111111;
-      --pink:   #E8008A;
-      --pdim:   rgba(232,0,138,0.08);
-      --pbdr:   rgba(232,0,138,0.28);
-      --white:  #ffffff;
-      --muted:  rgba(255,255,255,0.42);
-      --border: rgba(255,255,255,0.07);
-    }
+/* layout */
+main{position:relative;z-index:1;flex:1;padding:clamp(48px,8vw,96px) 20px 80px}
+.wrap{max-width:680px;margin:0 auto}
+.step[hidden]{display:none}
+.step{animation:rise .5s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--mute);margin:0 0 20px}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:var(--mag)}
+h2{margin:0 0 16px;font:700 clamp(56px,9vw,92px)/.88 var(--display);text-transform:uppercase}
+.lead{margin:0 0 44px;max-width:46ch;font-size:18px;line-height:1.55;color:var(--soft)}
 
-    html { scroll-behavior: smooth; }
+/* fields */
+.fields{display:flex;flex-direction:column;gap:28px}
+.field{display:flex;flex-direction:column;gap:10px;border:0;margin:0;padding:0;min-width:0}
+.field>label,.field legend{padding:0;font:600 15px/1.35 var(--body);color:var(--text)}
+.opt{font:400 13px/1 var(--body);color:var(--mute);margin-left:6px}
+.req{color:var(--mag);margin-left:2px}
+input,textarea,select{width:100%;font:400 17px/1.4 var(--body);color:var(--text);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:15px 16px;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .2s,background .2s}
+textarea{min-height:120px;resize:vertical;line-height:1.55}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a8a0a6' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:18px;padding-right:46px}
+select:invalid{color:#7d757b}
+select option{background:#141114;color:var(--text)}
+::placeholder{color:#6f676d}
+input:hover,textarea:hover,select:hover{border-color:#3d363b}
+input:focus,textarea:focus,select:focus{border-color:var(--mag);background:#181418}
+.field.err input,.field.err textarea{border-color:var(--mag)}
+.msg{margin:28px 0 0;font-size:15px;font-weight:500;color:var(--mag-hi)}
+.msg:empty{display:none}
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Garet', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-    }
+/* service chips */
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip{position:relative;display:flex;align-items:center;gap:12px;min-height:54px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--field);cursor:pointer;user-select:none;transition:border-color .2s,background .2s}
+.chip:hover{border-color:#3d363b}
+.chip input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.box{flex:0 0 auto;width:20px;height:20px;border-radius:6px;border:1.5px solid #5a5258;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.box svg{width:12px;height:12px;stroke:var(--ink);stroke-width:3.2;fill:none;opacity:0}
+.chip span:last-child{font-size:15px;color:var(--soft)}
+.chip:has(input:checked){border-color:var(--mag);background:rgba(232,0,138,.08)}
+.chip:has(input:checked) .box{background:var(--mag);border-color:var(--mag)}
+.chip:has(input:checked) .box svg{opacity:1}
+.chip:has(input:checked) span:last-child{color:var(--text)}
+.chip:has(input:focus-visible){outline:2px solid var(--mag);outline-offset:3px}
 
-    /* subtle grid */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
-      z-index: 0;
-    }
+/* step nav */
+.actions{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 28px;border-radius:999px;font:700 15px/1 var(--body);text-transform:uppercase;letter-spacing:.05em;transition:transform .25s var(--ease),background .2s,opacity .2s}
+.pill svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pill-mag{background:var(--mag);color:var(--ink)}
+.pill-mag:hover{background:var(--mag-hi);transform:translateY(-2px)}
+.pill-mag[disabled]{opacity:.55;transform:none;cursor:default}
+.back{height:56px;padding:0 6px;color:var(--mute);font:600 15px/1 var(--body);text-transform:uppercase;letter-spacing:.05em;transition:color .2s}
+.back:hover{color:var(--text)}
 
-    /* glow */
-    body::after {
-      content: '';
-      position: fixed;
-      top: -20%;
-      right: -10%;
-      width: 55vw;
-      height: 55vw;
-      background: radial-gradient(ellipse, rgba(232,0,138,0.06) 0%, transparent 65%);
-      pointer-events: none;
-      z-index: 0;
-    }
+/* done */
+.done{text-align:center;padding:24px 0}
+.ring{width:76px;height:76px;margin:0 auto 32px;border-radius:50%;display:grid;place-items:center;background:rgba(232,0,138,.1);border:1px solid rgba(232,0,138,.45)}
+.ring svg{width:32px;height:32px;stroke:var(--mag);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.done .lead{margin:0 auto 36px}
+.pill-line{border:1.5px solid rgba(236,231,234,.5)}
+.pill-line:hover{background:rgba(236,231,234,.08)}
 
-    /* ── PROGRESS ── */
-    #bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      background: var(--pink);
-      z-index: 200;
-      width: 0%;
-      transition: width 0.55s cubic-bezier(0.4,0,0.2,1);
-      box-shadow: 0 0 14px rgba(232,0,138,0.55);
-    }
+footer{position:relative;z-index:1;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:24px var(--gut) calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);color:#8e868c}
+footer a:hover{color:var(--text)}
 
-    /* ── HEADER ── */
-    header {
-      position: fixed;
-      inset: 0 0 auto;
-      z-index: 100;
-      padding: 1.1rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(20px);
-    }
-
-    .logo img {
-      height: 52px;
-      width: auto;
-      mix-blend-mode: screen;
-      display: block;
-    }
-
-    .hdr-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-    .step-counter {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .step-counter strong { color: var(--pink); }
-
-    /* ── MAIN ── */
-    main {
-      flex: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 7.5rem 1.5rem 5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .wrapper {
-      width: 100%;
-      max-width: 660px;
-    }
-
-    /* ── STEPS ── */
-    .step { display: none; }
-    .step.active {
-      display: block;
-      animation: rise 0.42s cubic-bezier(0.4,0,0.2,1) forwards;
-    }
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* step head */
-    .s-eyebrow {
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--pink);
-      margin-bottom: 0.8rem;
-    }
-    .s-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.4rem, 6vw, 3.8rem);
-      text-transform: uppercase;
-      line-height: 0.93;
-      color: var(--white);
-      margin-bottom: 0.9rem;
-    }
-    .s-title .pk { color: var(--pink); }
-    .s-sub {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 2.8rem;
-      max-width: 46ch;
-    }
-
-    /* ── FIELDS ── */
-    .fields { display: flex; flex-direction: column; gap: 1.6rem; }
-
-    .field { display: flex; flex-direction: column; gap: 0.55rem; }
-
-    .field > label {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.38);
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
-    .field > label .opt {
-      font-size: 0.58rem;
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-      color: rgba(255,255,255,0.2);
-    }
-
-    .field input,
-    .field textarea,
-    .field select {
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.09);
-      color: var(--white);
-      font-family: 'Garet', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 400;
-      padding: 0.9rem 1.05rem;
-      outline: none;
-      width: 100%;
-      border-radius: 0;
-      -webkit-appearance: none;
-      transition: border-color 0.25s, background 0.25s;
-    }
-    .field select option { background: #111; color: #fff; }
-    .field input::placeholder,
-    .field textarea::placeholder { color: rgba(255,255,255,0.16); }
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
-      border-color: var(--pink);
-      background: rgba(232,0,138,0.04);
-    }
-    .field textarea { min-height: 108px; resize: vertical; line-height: 1.65; }
-
-    /* ── CHECKBOXES ── */
-    .cb-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.55rem;
-    }
-    .cb-item {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 0.8rem 1rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      cursor: pointer;
-      user-select: none;
-      transition: border-color 0.22s, background 0.22s;
-    }
-    .cb-item:hover { border-color: rgba(232,0,138,0.3); }
-    .cb-item.on {
-      border-color: rgba(232,0,138,0.38);
-      background: rgba(232,0,138,0.07);
-    }
-    .cb-item input { display: none; }
-    .cb-box {
-      width: 15px; height: 15px;
-      border: 1.5px solid rgba(255,255,255,0.22);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .cb-item.on .cb-box {
-      background: var(--pink);
-      border-color: var(--pink);
-    }
-    .cb-item.on .cb-box::after {
-      content: '✓';
-      font-size: 9px;
-      color: #fff;
-      font-weight: 800;
-    }
-    .cb-text {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.3;
-      transition: color 0.22s;
-    }
-    .cb-item.on .cb-text { color: var(--white); }
-
-    /* ── NAV ROW ── */
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 2.8rem;
-    }
-
-    .btn-back {
-      background: none;
-      border: none;
-      font-family: 'Garet', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      cursor: pointer;
-      padding: 0.7rem 0;
-      transition: color 0.22s;
-    }
-    .btn-back:hover { color: rgba(255,255,255,0.7); }
-    .btn-back[disabled] { opacity: 0; pointer-events: none; }
-
-    .dots {
-      display: flex;
-      gap: 0.45rem;
-      align-items: center;
-    }
-    .dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      transition: background 0.25s, transform 0.25s;
-    }
-    .dot.on {
-      background: var(--pink);
-      transform: scale(1.5);
-    }
-
-    .btn-next {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      background: var(--pink);
-      color: #fff;
-      border: none;
-      font-family: 'Garet', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 0.9rem 1.75rem;
-      cursor: pointer;
-      transition: opacity 0.22s, transform 0.22s, box-shadow 0.22s;
-    }
-    .btn-next:hover {
-      opacity: 0.88;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(232,0,138,0.38);
-    }
-
-    /* ── THANK YOU ── */
-    #step-done {
-      text-align: center;
-      padding: 2rem 0 3rem;
-    }
-    .done-ring {
-      width: 68px; height: 68px;
-      border: 2px solid var(--pink);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 2.5rem;
-      font-size: 1.6rem;
-      color: var(--pink);
-      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
-    }
-    @keyframes popIn {
-      from { transform: scale(0.5); opacity: 0; }
-      to   { transform: scale(1); opacity: 1; }
-    }
-    .done-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.8rem, 7vw, 4.5rem);
-      text-transform: uppercase;
-      line-height: 0.95;
-      margin-bottom: 1.5rem;
-    }
-    .done-title span { color: var(--pink); }
-    .done-body {
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.85;
-      max-width: 40ch;
-      margin: 0 auto;
-    }
-    .done-divider {
-      width: 48px;
-      height: 2px;
-      background: var(--pink);
-      margin: 2.2rem auto;
-    }
-    .done-contact {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.2);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      padding: 1.4rem 2.5rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .ft { font-size: 0.62rem; color: rgba(255,255,255,0.14); letter-spacing: 0.1em; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 580px) {
-      header { padding: 1rem 1.2rem; }
-      .cb-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
-    }
-  </style>
+@media (max-width:599px){
+  .top-in{height:64px}.top img{height:36px}
+  .chips{grid-template-columns:1fr}
+  .lead{font-size:17px;margin-bottom:36px}
+  .actions .pill-mag{flex:1}
+  footer{justify-content:center;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 
-<div id="bar"></div>
-
-<header>
-  <a href="/" class="logo"><img src="assets/logos-bg/2.png" alt="Short Shift Media" /></a>
-  <div class="hdr-right">
-    <div class="step-counter">Step <strong id="snum">1</strong> of 4</div>
+<header class="top">
+  <div class="top-in">
+    <a href="/" aria-label="Short Shift Media, home"><img src="media/brand/logo.png" alt="Short Shift Media" width="137" height="160"></a>
+    <span class="mono count" id="count" aria-live="polite">Step <b id="snum">1</b> of 4</span>
   </div>
+  <div class="bar" id="bar"></div>
 </header>
 
 <main>
-  <div class="wrapper">
+  <h1 class="sr">Short Shift Media brand intake</h1>
+  <form class="wrap" id="intake" novalidate>
 
-    <!-- ──────────────────────────────────────
-         STEP 1 — ABOUT YOU
-    ────────────────────────────────────────── -->
-    <div class="step active" id="step-1">
-      <p class="s-eyebrow">Section 01 — Let's Start Here</p>
-      <h2 class="s-title">About <span class="pk">You.</span></h2>
-      <p class="s-sub">Before we build anything, we need to know who we're building it with.</p>
+    <section class="step" data-step="1" aria-labelledby="h1">
+      <p class="mono eyebrow">01 — Let's start here</p>
+      <h2 id="h1">About <span class="mag">you.</span></h2>
+      <p class="lead">Before we build anything, we need to know who we're building it with.</p>
       <div class="fields">
-        <div class="field">
-          <label>Your Full Name</label>
-          <input type="text" id="f-name" placeholder="Ahmed Hassan" />
-        </div>
-        <div class="field">
-          <label>Your Role at the Brand</label>
-          <input type="text" id="f-role" placeholder="Founder · Marketing Manager · Creative Director..." />
-        </div>
-        <div class="field">
-          <label>Brand Name</label>
-          <input type="text" id="f-brand" placeholder="Your brand name" />
-        </div>
-        <div class="field">
-          <label>Email Address</label>
-          <input type="email" id="f-email" placeholder="you@yourbrand.com" />
-        </div>
+        <div class="field"><label for="f-name">Your full name<span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="f-name" name="name" autocomplete="name" placeholder="Ahmed Hassan" required></div>
+        <div class="field"><label for="f-role">Your role at the brand</label>
+          <input type="text" id="f-role" name="role" autocomplete="organization-title" placeholder="Founder, marketing manager, creative director…"></div>
+        <div class="field"><label for="f-brand">Brand name<span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="f-brand" name="brand" autocomplete="organization" placeholder="Your brand name" required></div>
+        <div class="field"><label for="f-email">Email address<span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="f-email" name="email" autocomplete="email" inputmode="email" placeholder="you@yourbrand.com" required></div>
       </div>
-      <div class="nav">
-        <button class="btn-back" disabled>← Back</button>
-        <div class="dots">
-          <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        </div>
-        <button class="btn-next" onclick="next(1)">Next →</button>
-      </div>
-    </div>
+    </section>
 
-    <!-- ──────────────────────────────────────
-         STEP 2 — YOUR BRAND
-    ────────────────────────────────────────── -->
-    <div class="step" id="step-2">
-      <p class="s-eyebrow">Section 02 — The Brand</p>
-      <h2 class="s-title">Your <span class="pk">Brand.</span></h2>
-      <p class="s-sub">Help us understand what you do, who you do it for, and where you live online.</p>
+    <section class="step" data-step="2" aria-labelledby="h2" hidden>
+      <p class="mono eyebrow">02 — The brand</p>
+      <h2 id="h2">Your <span class="mag">brand.</span></h2>
+      <p class="lead">Help us understand what you do, who you do it for, and where you live online.</p>
       <div class="fields">
-        <div class="field">
-          <label>Website &amp; Main Social Handle</label>
-          <input type="text" id="f-socials" placeholder="yourbrand.com  ·  @yourbrand" />
-        </div>
-        <div class="field">
-          <label>What Does Your Brand Do? <span class="opt">2–3 sentences</span></label>
-          <textarea id="f-what" placeholder="We make / We sell / We help..."></textarea>
-        </div>
-        <div class="field">
-          <label>Industry</label>
-          <select id="f-industry">
+        <div class="field"><label for="f-socials">Website and main social handle</label>
+          <input type="text" id="f-socials" name="socials" placeholder="yourbrand.com · @yourbrand"></div>
+        <div class="field"><label for="f-what">What does your brand do?<span class="opt">2–3 sentences</span></label>
+          <textarea id="f-what" name="what" placeholder="We make / We sell / We help…"></textarea></div>
+        <div class="field"><label for="f-industry">Industry</label>
+          <select id="f-industry" name="industry" required>
             <option value="" disabled selected>Select your industry</option>
-            <option>Fashion &amp; Apparel</option>
-            <option>Food &amp; Beverage</option>
-            <option>Beauty &amp; Skincare</option>
-            <option>Fitness &amp; Wellness</option>
-            <option>Tech &amp; Lifestyle</option>
-            <option>Home &amp; Interior</option>
-            <option>Hospitality &amp; Events</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Who Is Your Target Customer?</label>
-          <textarea id="f-audience" placeholder="Age range, lifestyle, what they care about, where they spend time..."></textarea>
-        </div>
+            <option>Fashion &amp; Apparel</option><option>Food &amp; Beverage</option><option>Beauty &amp; Skincare</option>
+            <option>Fitness &amp; Wellness</option><option>Tech &amp; Lifestyle</option><option>Home &amp; Interior</option>
+            <option>Hospitality &amp; Events</option><option>Healthcare</option><option>Other</option>
+          </select></div>
+        <div class="field"><label for="f-audience">Who is your target customer?</label>
+          <textarea id="f-audience" name="audience" placeholder="Age range, lifestyle, what they care about, where they spend time…"></textarea></div>
       </div>
-      <div class="nav">
-        <button class="btn-back" onclick="back(2)">← Back</button>
-        <div class="dots">
-          <div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
-        </div>
-        <button class="btn-next" onclick="next(2)">Next →</button>
-      </div>
-    </div>
+    </section>
 
-    <!-- ──────────────────────────────────────
-         STEP 3 — CONTENT VISION
-    ────────────────────────────────────────── -->
-    <div class="step" id="step-3">
-      <p class="s-eyebrow">Section 03 — The Creative</p>
-      <h2 class="s-title">Content <span class="pk">Vision.</span></h2>
-      <p class="s-sub">This is where your creative direction starts to take shape. Be as honest as you like.</p>
+    <section class="step" data-step="3" aria-labelledby="h3" hidden>
+      <p class="mono eyebrow">03 — The creative</p>
+      <h2 id="h3">Content <span class="mag">vision.</span></h2>
+      <p class="lead">This is where your creative direction starts to take shape. Be as honest as you like.</p>
       <div class="fields">
-        <div class="field">
-          <label>What Feeling Should Your Content Leave People With?</label>
-          <textarea id="f-feeling" placeholder="Inspired, premium, rebellious, trustworthy, fun, aspirational..."></textarea>
-        </div>
-        <div class="field">
-          <label>Which Services Excite You Most? <span class="opt">Pick all that apply</span></label>
-          <div class="cb-grid" id="cb-services">
-            <label class="cb-item"><input type="checkbox" value="Cinematic Reels" /><div class="cb-box"></div><span class="cb-text">Cinematic Reels</span></label>
-            <label class="cb-item"><input type="checkbox" value="UGC Video" /><div class="cb-box"></div><span class="cb-text">UGC Video</span></label>
-            <label class="cb-item"><input type="checkbox" value="Creative Social Posts" /><div class="cb-box"></div><span class="cb-text">Creative Social Posts</span></label>
-            <label class="cb-item"><input type="checkbox" value="Event & Brand Coverage" /><div class="cb-box"></div><span class="cb-text">Event &amp; Brand Coverage</span></label>
-            <label class="cb-item"><input type="checkbox" value="Product Cinematics" /><div class="cb-box"></div><span class="cb-text">Product Cinematics</span></label>
-            <label class="cb-item"><input type="checkbox" value="Lifestyle & Branding Shoots" /><div class="cb-box"></div><span class="cb-text">Lifestyle &amp; Branding Shoots</span></label>
-            <label class="cb-item"><input type="checkbox" value="AI Image & Video" /><div class="cb-box"></div><span class="cb-text">AI Image &amp; Video</span></label>
-            <label class="cb-item"><input type="checkbox" value="Creative Direction" /><div class="cb-box"></div><span class="cb-text">Creative Direction</span></label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Name 1–2 Brands or Creators Whose Content You Love</label>
-          <input type="text" id="f-inspo" placeholder="Nike, @SomeCreator, ZARA, Glossier..." />
-        </div>
+        <div class="field"><label for="f-feeling">What feeling should your content leave people with?</label>
+          <textarea id="f-feeling" name="feeling" placeholder="Inspired, premium, rebellious, trustworthy, fun, aspirational…"></textarea></div>
+        <fieldset class="field"><legend>Which services interest you most?<span class="opt">Pick all that apply</span></legend>
+          <div class="chips" id="services"></div></fieldset>
+        <div class="field"><label for="f-inspo">Name 1–2 brands or creators whose content you love</label>
+          <input type="text" id="f-inspo" name="inspo" placeholder="Nike, @somecreator, Zara, Glossier…"></div>
       </div>
-      <div class="nav">
-        <button class="btn-back" onclick="back(3)">← Back</button>
-        <div class="dots">
-          <div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div>
-        </div>
-        <button class="btn-next" onclick="next(3)">Next →</button>
-      </div>
-    </div>
+    </section>
 
-    <!-- ──────────────────────────────────────
-         STEP 4 — LAST DETAILS
-    ────────────────────────────────────────── -->
-    <div class="step" id="step-4">
-      <p class="s-eyebrow">Section 04 — Final Details</p>
-      <h2 class="s-title">Last <span class="pk">Details.</span></h2>
-      <p class="s-sub">Two quick questions so we come to the first meeting with the right ideas already prepared.</p>
+    <section class="step" data-step="4" aria-labelledby="h4" hidden>
+      <p class="mono eyebrow">04 — Final details</p>
+      <h2 id="h4">Last <span class="mag">details.</span></h2>
+      <p class="lead">Two quick questions so we come to the first meeting with the right ideas already prepared.</p>
       <div class="fields">
-        <div class="field">
-          <label>Any Upcoming Launches, Events, or Moments We Should Know About?</label>
-          <textarea id="f-upcoming" placeholder="New product drop in March, Ramadan campaign, store opening, seasonal push..."></textarea>
-        </div>
-        <div class="field">
-          <label>Any Visual Styles or Directions You Want to Avoid? <span class="opt">Optional</span></label>
-          <input type="text" id="f-avoid" placeholder="Overly corporate, very dark tones, fast-paced edits..." />
-        </div>
+        <div class="field"><label for="f-upcoming">Any upcoming launches, events or moments we should know about?</label>
+          <textarea id="f-upcoming" name="upcoming" placeholder="New product drop, Ramadan campaign, store opening, seasonal push…"></textarea></div>
+        <div class="field"><label for="f-avoid">Any styles or directions you want to avoid?<span class="opt">Optional</span></label>
+          <input type="text" id="f-avoid" name="avoid" placeholder="Overly corporate, very dark tones, fast-paced edits…"></div>
       </div>
-      <div class="nav">
-        <button class="btn-back" onclick="back(4)">← Back</button>
-        <div class="dots">
-          <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div>
-        </div>
-        <button class="btn-next" onclick="submit()">Submit →</button>
-      </div>
+    </section>
+
+    <p class="msg" id="msg" role="alert"></p>
+    <div class="actions" id="actions">
+      <button class="back" type="button" id="back">← Back</button>
+      <button class="pill pill-mag" type="submit" id="next">Next<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
 
-    <!-- ──────────────────────────────────────
-         THANK YOU
-    ────────────────────────────────────────── -->
-    <div class="step" id="step-done">
-      <div class="done-ring">✦</div>
-      <h2 class="done-title">You're All <span>Set.</span></h2>
-      <p class="done-body">
-        We have everything we need. We'll review your answers before we meet so we arrive with ideas — not just questions.
-      </p>
-      <div class="done-divider"></div>
-      <p class="done-contact">SHORT SHIFT MEDIA &nbsp;·&nbsp; CAIRO, EGYPT &nbsp;·&nbsp; SHORTSHIFT.MEDIA</p>
-    </div>
-
-  </div>
+    <section class="step done" data-step="done" hidden>
+      <div class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <p class="mono eyebrow" style="justify-content:center">Brief received</p>
+      <h2 tabindex="-1" id="done-h">You're all <span class="mag">set.</span></h2>
+      <p class="lead">We'll read your answers before we meet, so we arrive with ideas, not just questions. Expect to hear from us within one working day.</p>
+      <a class="pill pill-line" href="/">Back to the site</a>
+    </section>
+  </form>
 </main>
 
-<footer>
-  <p class="ft">SHORT SHIFT MEDIA — BRAND INTAKE FORM</p>
-  <p class="ft">hello@shortshift.media</p>
+<footer class="mono">
+  <span>© 2026 Short Shift Media · Cairo</span>
+  <a href="mailto:hello@shortshift.media">hello@shortshift.media</a>
 </footer>
 
 <script>
-  // ── CHECKBOX TOGGLE ──
-  document.querySelectorAll('.cb-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const cb = item.querySelector('input');
-      cb.checked = !cb.checked;
-      item.classList.toggle('on', cb.checked);
-    });
+(()=>{
+const SERVICES=['Cinematic reels','UGC video','Creative social posts','Event & brand coverage','Product films','Lifestyle & brand shoots','AI image & video','Creative direction'];
+const tick='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
+document.getElementById('services').innerHTML=SERVICES.map(s=>
+  `<label class="chip"><input type="checkbox" name="services" value="${s.replace(/&/g,'&amp;')}"><span class="box">${tick}</span><span>${s.replace(/&/g,'&amp;')}</span></label>`).join('');
+
+const form=document.getElementById('intake'),steps=[...form.querySelectorAll('.step')],
+  back=document.getElementById('back'),next=document.getElementById('next'),msg=document.getElementById('msg'),
+  actions=document.getElementById('actions'),bar=document.getElementById('bar'),snum=document.getElementById('snum');
+const arrow=next.querySelector('svg').outerHTML;
+let cur=1;
+
+function show(n){
+  cur=n;steps.forEach(s=>s.hidden=s.dataset.step!==String(n));
+  const done=n==='done';
+  actions.hidden=done;back.style.visibility=n===1?'hidden':'';msg.textContent='';
+  next.innerHTML=(n===4?'Send brief':'Next')+arrow;
+  bar.style.width=(done?100:(n-1)/4*100)+'%';
+  if(done){document.getElementById('count').textContent='Complete';document.getElementById('done-h').focus()}
+  else snum.textContent=n;
+  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+}
+
+function valid(){
+  const step=form.querySelector(`.step[data-step="${cur}"]`);let first=null;
+  step.querySelectorAll('input[required]').forEach(i=>{
+    const bad=!i.value.trim()||(i.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value.trim()));
+    i.closest('.field').classList.toggle('err',bad);i.setAttribute('aria-invalid',bad);
+    if(bad&&!first)first=i;
   });
+  if(first){msg.textContent=first.type==='email'&&first.value.trim()?'Please enter a valid email address.':'Please fill in the highlighted fields.';first.focus();return false}
+  return true;
+}
+form.addEventListener('input',e=>{const f=e.target.closest('.field.err');if(f){f.classList.remove('err');e.target.removeAttribute('aria-invalid')}});
+back.onclick=()=>show(cur-1);
 
-  // ── PROGRESS ──
-  function setProgress(step, total = 4) {
-    const pct = ((step - 1) / total) * 100;
-    document.getElementById('bar').style.width = pct + '%';
-    document.getElementById('snum').textContent = Math.min(step, total);
-  }
-
-  // ── NAVIGATION ──
-  function showStep(id) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById('step-' + id).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function next(from) {
-    showStep(from + 1 > 4 ? 'done' : from + 1);
-    setProgress(from + 1);
-  }
-
-  function back(from) {
-    showStep(from - 1);
-    setProgress(from - 1);
-  }
-
-  // ── SUBMIT ──
-  function submit() {
-    const services = [...document.querySelectorAll('#cb-services input:checked')]
-      .map(c => c.value).join(', ') || 'None selected';
-
-    const data = {
-      name:     document.getElementById('f-name').value,
-      role:     document.getElementById('f-role').value,
-      brand:    document.getElementById('f-brand').value,
-      email:    document.getElementById('f-email').value,
-      socials:  document.getElementById('f-socials').value,
-      what:     document.getElementById('f-what').value,
-      industry: document.getElementById('f-industry').value,
-      audience: document.getElementById('f-audience').value,
-      feeling:  document.getElementById('f-feeling').value,
-      services,
-      inspo:    document.getElementById('f-inspo').value,
-      upcoming: document.getElementById('f-upcoming').value,
-      avoid:    document.getElementById('f-avoid').value,
-    };
-
-    const form = document.createElement('form');
-    form.action = 'https://api.web3forms.com/submit';
-    form.method = 'POST';
-    const extras = {
-      access_key: '3baead95-faee-416b-9f39-67f0230d1087',
-      subject: `Brand Intake: ${data.brand || data.name}`,
-    };
-    Object.entries({ ...extras, ...data }).forEach(([k, v]) => {
-      const i = document.createElement('input');
-      i.type = 'hidden'; i.name = k; i.value = v;
-      form.appendChild(i);
-    });
-    document.body.appendChild(form);
-    form.submit();
-
-    // Show confirmation
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById('step-done').classList.add('active');
-    document.getElementById('bar').style.width = '100%';
-    document.getElementById('snum').textContent = '4';
-  }
-
-  // Init
-  setProgress(1);
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!valid())return;
+  if(cur<4){show(cur+1);return}
+  const v=id=>document.getElementById(id).value.trim();
+  const services=[...form.querySelectorAll('input[name=services]:checked')].map(c=>c.value).join(', ')||'None selected';
+  const data={access_key:'3baead95-faee-416b-9f39-67f0230d1087',subject:`Brand Intake: ${v('f-brand')||v('f-name')}`,from_name:'Short Shift intake form',
+    name:v('f-name'),role:v('f-role'),brand:v('f-brand'),email:v('f-email'),socials:v('f-socials'),what:v('f-what'),
+    industry:document.getElementById('f-industry').value,audience:v('f-audience'),feeling:v('f-feeling'),services,
+    inspo:v('f-inspo'),upcoming:v('f-upcoming'),avoid:v('f-avoid')};
+  next.disabled=true;next.textContent='Sending…';msg.textContent='';
+  try{
+    const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)});
+    const j=await r.json();if(!j.success)throw 0;
+    show('done');
+  }catch(_){
+    msg.textContent='Something went wrong. Please try again, or email hello@shortshift.media';
+    next.innerHTML='Send brief'+arrow;
+  }finally{next.disabled=false}
+});
+show(1);
+})();
 </script>
-
 </body>
 </html>

@@ -6,31 +6,32 @@
   <title>Short Shift Media | Monthly Feedback</title>
   <meta name="description" content="Share your monthly feedback with Short Shift Media." />
   <meta name="robots" content="noindex" />
-  <link rel="icon" type="image/png" href="assets/logos/1.png" />
-  <link rel="apple-touch-icon" href="assets/logos/1.png" />
+  <link rel="icon" type="image/png" href="media/brand/favicon.png" />
+  <link rel="apple-touch-icon" href="media/brand/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0a090a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link href="https://api.fontshare.com/v2/css?f[]=garet@400,500,700,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background:#E8008A; color:#0a090a; }
+    :focus-visible { outline:2px solid #E8008A; outline-offset:3px; border-radius:6px; }
     :root {
-      --black:#000000; --white:#ffffff; --magenta:#E8008A;
-      --magenta-bg:rgba(232,0,138,0.08); --surface:#0d0d0d;
-      --muted:rgba(255,255,255,0.45); --border:rgba(255,255,255,0.09);
+      --black:#0a090a; --white:#ece7ea; --magenta:#E8008A;
+      --magenta-bg:rgba(232,0,138,0.08); --surface:#141114;
+      --muted:#a8a0a6; --border:#2c272b;
+      --display:'Antonio','Arial Narrow',Impact,sans-serif; --body:'Karla','Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
     }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
       background: var(--black); color: var(--white);
-      font-family:'Garet',sans-serif; font-weight:400; line-height:1.6;
+      font-family:var(--body); font-weight:400; line-height:1.6;
       min-height:100dvh; overflow-x:hidden;
     }
     /* soft magenta glow backdrop */
     body::before {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background:
-        radial-gradient(60vw 40vh at 50% -5%, rgba(232,0,138,0.14), transparent 70%),
-        radial-gradient(50vw 40vh at 100% 100%, rgba(232,0,138,0.06), transparent 70%);
+      background:url(media/brand/topo.webp) 0 0/1200px 1200px repeat; opacity:.035;
     }
     .wrap {
       position:relative; z-index:1;
@@ -41,36 +42,36 @@
     /* header */
     .fb-head { text-align:center; margin-bottom: clamp(2rem,6vw,3rem); }
     .fb-logo-link { display:inline-block; line-height:0; margin-bottom:1.4rem; }
-    .fb-logo { display:block; height:clamp(72px,18vw,104px); width:auto; margin:0 auto; }
+    .fb-logo { display:block; height:clamp(56px,14vw,72px); width:auto; margin:0 auto; }
     .fb-eyebrow {
-      display:block; font-size:0.66rem; font-weight:700;
-      letter-spacing:0.3em; text-transform:uppercase; color:var(--magenta);
+      display:block; font-family:var(--mono); font-size:12px; font-weight:500;
+      letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);
       margin-bottom:1rem;
     }
     .fb-title {
-      font-family:'Barlow Condensed',sans-serif; font-weight:900;
-      font-size:clamp(2.3rem,9vw,3.4rem); line-height:0.95;
+      font-family:var(--display); font-weight:900;
+      font-size:clamp(3rem,11vw,4.6rem); line-height:0.9;
       text-transform:uppercase; letter-spacing:-0.01em; margin-bottom:1rem;
     }
     .fb-title .signal { color:var(--magenta); }
-    .fb-sub { font-size:0.92rem; color:var(--muted); font-weight:300; max-width:44ch; margin:0 auto; }
+    .fb-sub { font-size:1.05rem; color:#d9d2d6; font-weight:400; max-width:44ch; margin:0 auto; }
 
     /* text fields */
     .fb-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2.4rem; }
     .fb-field label {
-      display:block; font-size:0.62rem; font-weight:700; letter-spacing:0.18em;
-      text-transform:uppercase; color:var(--muted); margin-bottom:0.55rem;
+      display:block; font-size:0.95rem; font-weight:600; letter-spacing:0;
+      text-transform:none; color:var(--white); margin-bottom:0.55rem;
     }
     .fb-field input {
       width:100%; background:var(--surface); border:1px solid var(--border);
-      color:var(--white); font-family:'Garet',sans-serif; font-size:0.9rem;
-      padding:0.85rem 1rem; border-radius:6px; transition:border-color .2s;
+      color:var(--white); font-family:var(--body); font-size:1.05rem;
+      padding:0.95rem 1rem; border-radius:12px; transition:border-color .2s;
     }
     .fb-field input::placeholder { color:rgba(255,255,255,0.25); }
     .fb-field input:focus { outline:none; border-color:var(--magenta); }
 
     /* pillars */
-    .pillars { display:flex; flex-direction:column; gap:2px; border-radius:8px; overflow:hidden; }
+    .pillars { display:flex; flex-direction:column; gap:2px; border-radius:16px; overflow:hidden; border:1px solid var(--border); gap:1px; background:var(--border); }
     .pillar {
       background:var(--surface);
       display:flex; align-items:center; justify-content:space-between; gap:1rem;
@@ -80,26 +81,26 @@
     .pillar.rated { background:var(--magenta-bg); }
     .pillar-info { display:flex; align-items:center; gap:0.9rem; min-width:0; }
     .pillar-num {
-      font-size:0.62rem; font-weight:700; letter-spacing:0.1em;
-      color:rgba(255,255,255,0.28); flex-shrink:0; width:1.2rem;
+      font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:0.1em;
+      color:var(--magenta); flex-shrink:0; width:1.2rem;
     }
     .pillar-name {
-      font-family:'Barlow Condensed',sans-serif; font-weight:700;
-      font-size:1.15rem; text-transform:uppercase; letter-spacing:0.02em; line-height:1.05;
+      font-family:var(--display); font-weight:700;
+      font-size:1.45rem; text-transform:uppercase; letter-spacing:0.02em; line-height:1;
     }
     .pillar-name small {
-      display:block; font-family:'Garet',sans-serif; font-weight:300;
-      font-size:0.66rem; letter-spacing:0.04em; text-transform:none; color:var(--muted); margin-top:2px;
+      display:block; font-family:var(--body); font-weight:400;
+      font-size:0.85rem; letter-spacing:0; text-transform:none; color:var(--muted); margin-top:2px;
     }
 
     /* stars */
-    .stars { display:flex; gap:0.25rem; flex-shrink:0; }
+    .stars { display:flex; gap:0; flex-shrink:0; margin-right:-8px; }
     .star {
-      background:none; border:none; padding:0.15rem; cursor:pointer; line-height:0;
+      background:none; border:none; width:44px; height:44px; display:grid; place-items:center; padding:0; cursor:pointer; line-height:0;
       -webkit-tap-highlight-color:transparent;
     }
     .star svg { width:26px; height:26px; display:block; transition:transform .12s, fill .15s, stroke .15s; }
-    .star svg { fill:transparent; stroke:rgba(255,255,255,0.28); stroke-width:1.6; }
+    .star svg { fill:transparent; stroke:#6f676d; stroke-width:1.6; }
     .star.on svg { fill:var(--magenta); stroke:var(--magenta); }
     .star:active svg { transform:scale(0.85); }
     @media (hover:hover) {
@@ -110,13 +111,13 @@
     /* comment */
     .fb-comment { margin-top:2.4rem; }
     .fb-comment label {
-      display:block; font-size:0.62rem; font-weight:700; letter-spacing:0.18em;
-      text-transform:uppercase; color:var(--muted); margin-bottom:0.6rem;
+      display:block; font-size:0.95rem; font-weight:600; letter-spacing:0;
+      text-transform:none; color:var(--white); margin-bottom:0.6rem;
     }
     .fb-comment textarea {
       width:100%; background:var(--surface); border:1px solid var(--border);
-      color:var(--white); font-family:'Garet',sans-serif; font-size:0.9rem;
-      padding:0.9rem 1rem; border-radius:6px; min-height:110px; resize:vertical; line-height:1.6;
+      color:var(--white); font-family:var(--body); font-size:1.05rem;
+      padding:0.95rem 1rem; border-radius:12px; min-height:110px; resize:vertical; line-height:1.6;
     }
     .fb-comment textarea::placeholder { color:rgba(255,255,255,0.25); }
     .fb-comment textarea:focus { outline:none; border-color:var(--magenta); }
@@ -125,10 +126,10 @@
     .fb-submit { margin-top:2.4rem; text-align:center; }
     .btn {
       display:inline-flex; align-items:center; justify-content:center; gap:0.7rem;
-      width:100%; background:var(--magenta); color:var(--white); border:none;
-      padding:1.15rem 2rem; font-family:'Garet',sans-serif; font-size:0.82rem;
-      font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
-      border-radius:6px; cursor:pointer; -webkit-tap-highlight-color:transparent;
+      width:100%; background:var(--magenta); color:var(--black); border:none;
+      padding:1.2rem 2rem; font-family:var(--body); font-size:1rem;
+      font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+      border-radius:999px; cursor:pointer; -webkit-tap-highlight-color:transparent;
       transition:transform .2s, box-shadow .2s, opacity .2s;
     }
     .btn:hover { transform:translateY(-2px); box-shadow:0 12px 34px rgba(232,0,138,0.4); }
@@ -149,7 +150,7 @@
     }
     .fb-done-ring svg { width:34px; height:34px; stroke:var(--magenta); stroke-width:2.5; fill:none; }
     .fb-done h2 {
-      font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:2.4rem;
+      font-family:var(--display); font-weight:900; font-size:2.4rem;
       text-transform:uppercase; line-height:1; margin-bottom:0.9rem;
     }
     .fb-done p { color:var(--muted); font-size:0.92rem; font-weight:300; max-width:34ch; margin:0 auto; }
@@ -159,7 +160,7 @@
       .pillar { padding:1rem 1rem; }
       .pillar-name { font-size:1.05rem; }
       .star svg { width:30px; height:30px; }
-      .stars { gap:0.15rem; }
+      .pillar-info { width:100%; }
     }
   </style>
 </head>
@@ -169,7 +170,7 @@
     <form id="fb-form">
       <div class="fb-head">
         <a href="/" class="fb-logo-link" aria-label="Short Shift Media">
-          <img src="assets/logos/2.png" alt="Short Shift Media" class="fb-logo" width="110" height="110" />
+          <img src="media/brand/logo.png" alt="Short Shift Media" class="fb-logo" width="137" height="160" />
         </a>
         <span class="fb-eyebrow">Monthly Feedback</span>
         <h1 class="fb-title">How Did We<br><span class="signal">Do This Month?</span></h1>

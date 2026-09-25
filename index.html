@@ -87,7 +87,8 @@ img,video{display:block;max-width:100%}
 .hero-vid{display:none}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,10,.6) 0%,rgba(10,9,10,0) 22%,rgba(10,9,10,0) 48%,rgba(10,9,10,.94) 100%)}
 .hero-copy{position:absolute;z-index:2;left:var(--gut);right:var(--gut);bottom:clamp(40px,6vh,64px);display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
-.hero-copy .mono{color:var(--mag);display:block;margin-bottom:22px}
+.hero-copy .mono{color:rgba(245,239,242,.82);display:flex;align-items:center;gap:12px;margin-bottom:22px;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.hero-copy .mono::before{content:"";width:28px;height:1.5px;background:var(--mag)}
 .hero h1{margin:0;font:700 clamp(76px,11.8vw,176px)/.86 var(--display);text-transform:uppercase}
 .hero p{margin:0 0 10px;max-width:380px;font-size:21px;line-height:1.45;font-weight:500;color:#efe9ec}
 @media (max-width:899px){
@@ -106,9 +107,9 @@ img,video{display:block;max-width:100%}
 .logos-win{flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .logos-track{display:flex;width:max-content;animation:marquee 32s linear infinite}
 .logos-set{display:flex;align-items:center;gap:72px;padding-right:72px;flex-shrink:0}
-.logos-set img{width:auto}
+.logos-set img{width:auto;opacity:.82;transition:opacity .3s}
 .lg-br{height:60px}.lg-fb{height:56px}.lg-dg{height:64px}
-.logos-set .star{color:var(--mag);font:700 34px/1 var(--display)}
+.logos-set .star{color:#3a3438;font:700 28px/1 var(--display)}
 .logos-set .next{font:700 34px/1 var(--display);text-transform:uppercase;color:#6e666c;white-space:nowrap}
 @keyframes marquee{to{transform:translateX(-50%)}}
 @media (max-width:899px){
@@ -123,7 +124,10 @@ img,video{display:block;max-width:100%}
 
 /* ---------- work ---------- */
 .work{background:rgba(10,9,10,.72);padding:clamp(72px,8vw,112px) var(--gut) clamp(48px,7vw,112px)}
-.work-top{margin:0 0 clamp(72px,7vw,104px)}
+.work-top{margin:0 0 clamp(72px,7vw,104px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--mute)}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:var(--mag)}
+.work-top .mono{padding-bottom:14px;color:var(--mute)}
 .work-top h2{margin:0;font:700 clamp(76px,11vw,160px)/.86 var(--display);text-transform:uppercase}
 .cases{display:flex;flex-direction:column;gap:clamp(72px,8vw,120px)}
 .case{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:"head media" "body media";column-gap:clamp(24px,3vw,48px);align-items:end}
@@ -132,7 +136,8 @@ img,video{display:block;max-width:100%}
 .case-head{grid-area:head;align-self:end;display:flex;flex-direction:column;gap:18px}
 .case-body{grid-area:body;align-self:start;display:flex;flex-direction:column;gap:22px;padding-top:18px}
 .case-media{grid-area:media;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-top:48px}
-.kicker{font:700 14px/1.2 var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--mag)}
+.kicker{display:flex;gap:14px;font:500 12px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
+.kicker b{font-weight:500;color:var(--mag)}
 .case h3{margin:0;font:700 clamp(64px,8.3vw,120px)/.88 var(--display);text-transform:uppercase}
 .case p{margin:0;font-size:20px;line-height:1.5;color:var(--soft);max-width:440px}
 .stat{display:flex;flex-direction:column;gap:10px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);max-width:460px}
@@ -163,8 +168,13 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 
 /* ---------- services ---------- */
 .services{background:var(--paper);color:var(--ink);padding:clamp(64px,7.5vw,104px) var(--gut);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-.services h2{grid-column:1/-1;margin:0 0 24px;font:700 clamp(64px,8.9vw,128px)/.86 var(--display);text-transform:uppercase}
-.svc{background:#fff;border-radius:28px;padding:32px;display:flex;flex-direction:column;gap:16px}
+.services h2{grid-column:1/-1;margin:0;font:700 clamp(64px,8.9vw,128px)/.86 var(--display);text-transform:uppercase}
+.svc{position:relative;background:#fff;border-radius:28px;padding:32px;display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 0 rgba(10,9,10,.04);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.svc:hover{transform:translateY(-4px);box-shadow:0 24px 50px -28px rgba(10,9,10,.35)}
+.svc-n{position:absolute;top:32px;right:32px;font:500 12px/1 var(--mono);letter-spacing:.12em;color:#9a9197}
+.svc-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin:0 0 24px}
+.svc-head h2{margin:0!important}
+.svc-head .eyebrow{color:#6d6469;padding-bottom:14px}
 .svc-ic{flex:0 0 auto;width:64px;height:64px;border-radius:50%;background:var(--mag);display:grid;place-items:center}
 .svc-ic svg{width:30px;height:30px;fill:var(--ink)}
 .svc h3{margin:0;font:700 52px/.95 var(--display);text-transform:uppercase}
@@ -181,6 +191,7 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 
 /* ---------- contact ---------- */
 .contact{padding:clamp(72px,7.5vw,104px) var(--gut) 56px;display:flex;flex-direction:column;gap:44px}
+.contact .eyebrow{margin-bottom:-12px}
 .contact h2{margin:0;font:700 clamp(72px,15.3vw,220px)/.84 var(--display);text-transform:uppercase}
 .ct-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .ct-row .pill{height:64px;padding:0 30px;font-size:17px}
@@ -277,7 +288,7 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
   .services h2{font-size:56px;margin-bottom:20px}
   .services h2 .br{display:inline}
   .svc{background:none;border-radius:0;padding:16px 0;border-top:1px solid rgba(10,9,10,.12)}
-  .contact{padding:64px 20px 40px;gap:12px}
+  .contact{padding:64px 20px 108px;gap:12px}
   .contact h2{font-size:min(64px,16.4vw);margin-bottom:20px}
   .ct-row .pill{height:58px;font-size:16px}
   .ct-row .pill-line{border-color:rgba(236,231,234,.5)}
@@ -286,17 +297,31 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
   .ct-list a span{display:none}
   .ct-list a svg{width:22px;height:22px;fill:var(--text)}
   .ct-foot{justify-content:center;padding-top:28px}
+  .work-top .mono{display:none!important}
+  .svc-head{display:block;margin:0 0 20px}
+  .svc-head .eyebrow{display:none}
+  .svc-n{display:none}
+  .svc:hover{transform:none;box-shadow:none}
+  .contact .eyebrow{margin-bottom:10px}
   .wa-float{opacity:0;transform:scale(.6);pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
   .wa-float.show{opacity:1;transform:none;pointer-events:auto}
 }
 
+::selection{background:var(--mag);color:var(--ink)}
+
+/* gentle fade-up as sections enter (only when JS is running) */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .js .rv{opacity:1;transform:none}
 }
 </style>
 <link rel="preload" as="image" href="media/poster/hero.jpg" media="(max-width: 899px)">
 </head>
 <body>
+<script>document.documentElement.classList.add("js")</script>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2zm5.3 13.6c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.4 11.4 0 0 1-4.4-3.9c-.3-.5-1-1.6-1-2.9s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6-.3.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3z"/></symbol>
@@ -372,11 +397,11 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 
 <main>
 <section class="work" id="work" aria-labelledby="work-h">
-  <div class="work-top"><h2 id="work-h">The <span class="mag">work.</span></h2></div>
+  <div class="work-top rv"><h2 id="work-h">The <span class="mag">work.</span></h2><span class="mono">Selected clients · 01–03</span></div>
   <div class="cases">
 
-    <article class="case" aria-labelledby="c1">
-      <div class="case-head"><span class="kicker">Golf &amp; tennis apparel</span><h3 id="c1">Beyond Reason</h3></div>
+    <article class="case rv" aria-labelledby="c1">
+      <div class="case-head"><span class="kicker"><b>01</b>Golf &amp; tennis apparel</span><h3 id="c1">Beyond Reason</h3></div>
       <div class="case-media">
         <button class="frame" type="button" data-case="br" data-film="br-r1" aria-label="Play Beyond Reason, her first swing"><video data-seq="br-r1,br-r2,br-r6" autoplay muted loop playsinline preload="none" poster="media/poster/br-r1.jpg" data-src="media/silent/br-r1.mp4"></video></button>
         <button class="frame" type="button" data-case="br" data-film="br-r2" aria-label="Play Beyond Reason, father and son"><video autoplay muted loop playsinline preload="none" poster="media/poster/br-r2.jpg" data-src="media/silent/br-r2.mp4"></video></button>
@@ -388,8 +413,8 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
       </div>
     </article>
 
-    <article class="case rev" aria-labelledby="c2">
-      <div class="case-head"><span class="kicker">Smash burger brand</span><h3 id="c2">Flippin' Burger</h3></div>
+    <article class="case rev rv" aria-labelledby="c2">
+      <div class="case-head"><span class="kicker"><b>02</b>Smash burger brand</span><h3 id="c2">Flippin' Burger</h3></div>
       <div class="case-media">
         <button class="frame" type="button" data-case="fb" data-film="flippin" aria-label="Play Flippin' Burger, the smash"><video autoplay muted loop playsinline preload="none" poster="media/poster/flippin.jpg" data-src="media/silent/flippin.mp4"></video></button>
         <div class="frame"><img src="media/img/d-flippin-cheetos-sm.webp" srcset="media/img/d-flippin-cheetos-sm.webp 560w, media/img/d-flippin-cheetos.webp 1100w" sizes="(max-width:899px) 214px, 20vw" alt="Flippin' Burger, the Cheetos smash" loading="lazy"></div>
@@ -401,8 +426,8 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
       </div>
     </article>
 
-    <article class="case" aria-labelledby="c3">
-      <div class="case-head"><span class="kicker">Medical careers platform · GCC</span><h3 id="c3">Doctors Gulf</h3></div>
+    <article class="case rv" aria-labelledby="c3">
+      <div class="case-head"><span class="kicker"><b>03</b>Medical careers platform · GCC</span><h3 id="c3">Doctors Gulf</h3></div>
       <div class="case-media">
         <button class="frame" type="button" data-case="dg" data-film="aya" aria-label="Play Doctors Gulf presenter reel"><video data-seq="aya,motion3d" autoplay muted loop playsinline preload="none" poster="media/poster/aya.jpg" data-src="media/silent/aya.mp4"></video></button>
         <button class="frame" type="button" data-case="dg" data-film="motion3d" aria-label="Play Doctors Gulf 3D product motion"><video autoplay muted loop playsinline preload="none" poster="media/poster/motion3d.jpg" data-src="media/silent/motion3d.mp4"></video></button>
@@ -418,23 +443,24 @@ button.frame:hover{box-shadow:0 20px 60px -18px rgba(232,0,138,.55)}
 </section>
 
 <section class="services" id="services" aria-labelledby="svc-h">
-  <h2 id="svc-h">Pick your <span class="br">shift</span></h2>
-  <div class="svc">
+  <div class="svc-head rv"><h2 id="svc-h">Pick your <span class="br">shift</span></h2><span class="mono eyebrow">What we make</span></div>
+  <div class="svc rv"><span class="svc-n" aria-hidden="true">01</span>
     <span class="svc-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h12v12H3zM16 10l5-3v10l-5-3z"/></svg></span>
     <div><h3>Film</h3><p>Cinematic reels, product films, lifestyle shoots, event coverage.</p></div>
   </div>
-  <div class="svc">
+  <div class="svc rv"><span class="svc-n" aria-hidden="true">02</span>
     <span class="svc-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm3 7v6l5-3z"/></svg></span>
     <div><h3>Social</h3><p>Creator-style video, presenter reels, posts and key visuals.</p></div>
   </div>
-  <div class="svc">
+  <div class="svc rv"><span class="svc-n" aria-hidden="true">03</span>
     <span class="svc-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg></span>
     <div><h3>AI &amp; motion</h3><p>AI image and video, 3D product motion, motion graphics.</p></div>
   </div>
 </section>
 
 <section class="contact" id="contact" aria-labelledby="ct-h">
-  <h2 id="ct-h">Let's <span class="mag">shift</span><br>something.</h2>
+  <span class="mono eyebrow rv">Start a project</span>
+  <h2 id="ct-h" class="rv">Let's <span class="mag">shift</span><br>something.</h2>
   <div class="ct-row">
     <a class="pill pill-mag" href="https://wa.me/201005513922?text=Hi%20Short%20Shift%2C%20I%27d%20like%20to%20talk%20about%20a%20project" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp us</a>
     <a class="pill pill-line" href="intake.html">Send a brief</a>
@@ -510,9 +536,8 @@ const phone=matchMedia('(max-width: 899px)');
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   const v=e.target;
   if(v.id==='hero-vid'&&!phone.matches)return;
-  if(!v.getAttribute('src'))v.src=v.dataset.src;
   const t=v._q&&v._q.b&&phone.matches?v._q.cur:v;
-  if(e.isIntersecting){t.muted=true;const p=t.play();p&&p.catch(()=>{})}
+  if(e.isIntersecting){if(!v.offsetParent)return;if(!v.getAttribute('src'))v.src=v.dataset.src;t.muted=true;const p=t.play();p&&p.catch(()=>{})}
   else t.pause();
 }),{rootMargin:'200px 0px'});
 vids.forEach(v=>io.observe(v));
@@ -526,6 +551,12 @@ let waOn=false,waTick=false;
 const waCheck=()=>{waTick=false;const h=hero.offsetHeight,y=scrollY;
   const on=waOn?y>h*.45:y>h*.7;if(on!==waOn){waOn=on;wa.classList.toggle('show',on)}};
 addEventListener('scroll',()=>{if(!waTick){waTick=true;requestAnimationFrame(waCheck)}},{passive:true});waCheck();
+
+/* fade sections in as they arrive */
+const rvs=[...document.querySelectorAll('.rv')];
+if('IntersectionObserver' in window){const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});rvs.forEach(r=>ro.observe(r))}
+else rvs.forEach(r=>r.classList.add('in'));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden){closeMenu();mOpen.focus()}});
 
 /* ---------- full-screen player (with sound) ---------- */
 const pl=document.getElementById('player'),pv=document.getElementById('p-video'),pbg=document.getElementById('p-bg'),
@@ -560,7 +591,9 @@ pv.addEventListener('ended',()=>go(1));
 pv.addEventListener('click',()=>pv.paused?pv.play():pv.pause());
 pv.addEventListener('timeupdate',()=>{const b=bars.children[idx];if(b)b.firstChild.style.width=(pv.currentTime/pv.duration*100||0)+'%'});
 addEventListener('keydown',e=>{if(pl.hidden)return;
-  if(e.key==='Escape')close();
+  if(e.key==='Tab'){const f=[...pl.querySelectorAll('button,a[href]')];const i=f.indexOf(document.activeElement);
+    if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}
+  else if(e.key==='Escape')close();
   else if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();go(1)}
   else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();go(-1)}
   else if(e.key==='m'||e.key==='M')pm.click()});
