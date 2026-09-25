@@ -147,24 +147,20 @@
   @keyframes nudge{0%,100%{translate:0 0}50%{translate:0 -4px}}
   @keyframes pop{from{scale:1.8;opacity:0}to{scale:1;opacity:1}}
   @keyframes mark{from{background-size:0% 100%}to{background-size:100% 100%}}
-  @supports (animation-timeline: scroll()){
-    .progress i{display:block;animation:grow linear both;animation-timeline:scroll(root)}
-  }
   @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  @supports (animation-timeline: view()){
-    .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
-    .stamp{animation:pop linear both;animation-timeline:view();animation-range:entry 20% entry 70%}
-    .hello .big mark{animation:mark linear both;animation-timeline:view();animation-range:entry 40% cover 45%}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation:none!important}
-    html{scroll-behavior:auto}
-  }
+  .progress i{display:block;transform:scaleX(0);will-change:transform}
+  .js .reveal{opacity:0;translate:0 26px;transition:opacity .7s cubic-bezier(.2,.8,.2,1),translate .7s cubic-bezier(.2,.8,.2,1)}
+  .js .reveal.in{opacity:1;translate:0 0}
+  .js .stamp{opacity:0;scale:1.8;transition:opacity .35s ease .15s,scale .5s cubic-bezier(.3,1.6,.5,1) .15s}
+  .js .stamp.in{opacity:1;scale:1}
+  .js .hello .big mark{background-size:0% 100%;transition:background-size 1s ease .35s}
+  .js .hello .big mark.in{background-size:100% 100%}
   @media (min-width:520px){
     body{padding-block:32px}
     .phone{border-radius:28px;box-shadow:0 30px 80px rgba(15,22,64,.35)}
   }
 </style>
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 
@@ -253,5 +249,20 @@
   <footer class="foot"><b>SHORT SHIFT MEDIA <em>×</em> COMMON</b><span>We shift brands to a better place, in a short time.</span></footer>
 
 </div>
+<script>
+(function(){
+  var d=document.documentElement;
+  var els=document.querySelectorAll('.reveal,.stamp,.hello mark');
+  function show(e){e.classList.add('in')}
+  if(!('IntersectionObserver' in window)){els.forEach(show)}
+  else{
+    var io=new IntersectionObserver(function(list){list.forEach(function(en){if(en.isIntersecting){show(en.target);io.unobserve(en.target)}})},{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+  var bar=document.querySelector('.progress i');
+  function prog(){var h=d.scrollHeight-window.innerHeight;if(bar)bar.style.transform='scaleX('+(h>0?Math.min(1,window.scrollY/h):0)+')'}
+  window.addEventListener('scroll',prog,{passive:true});window.addEventListener('resize',prog);prog();
+})();
+</script>
 </body>
 </html>
