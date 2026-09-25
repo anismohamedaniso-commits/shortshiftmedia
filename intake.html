@@ -27,7 +27,7 @@
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--ink);color:var(--text);font:400 17px/1.5 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;background:url(media/brand/topo.webp) 0 0/1200px 1200px repeat;opacity:.035;z-index:0}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cpath d='M48 41v14M41 48h14' stroke='%23ece7ea' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") 0 0/96px 96px repeat;opacity:.07;z-index:0}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 :focus-visible{outline:2px solid var(--mag);outline-offset:3px;border-radius:0}
@@ -62,7 +62,7 @@ h2{margin:0 0 16px;font:700 clamp(56px,9vw,92px)/.88 var(--display);text-transfo
 .req{color:var(--mag);margin-left:2px}
 input,textarea,select{width:100%;font:400 17px/1.4 var(--body);color:var(--text);background:var(--field);border:1px solid var(--line);border-radius:0;padding:15px 16px;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .2s,background .2s}
 textarea{min-height:120px;resize:vertical;line-height:1.55}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a8a0a6' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:18px;padding-right:46px}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a8a0a6' stroke-width='2.4' stroke-linecap='square'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:18px;padding-right:46px}
 select:invalid{color:#7d757b}
 select option{background:#141114;color:var(--text)}
 ::placeholder{color:#6f676d}
@@ -89,7 +89,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--mag);background:#1814
 /* step nav */
 .actions{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
 .pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 28px;border-radius:0;font:700 15px/1 var(--body);text-transform:uppercase;letter-spacing:.05em;transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s,opacity .2s}
-.pill svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pill svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:square;stroke-linejoin:miter}
 .pill-mag{background:var(--mag);color:var(--ink)}
 .pill-mag:hover{transform:translate(-4px,-4px);box-shadow:4px 4px 0 var(--text)}
 .pill-mag[disabled]{opacity:.55;transform:none;box-shadow:none;cursor:default}
@@ -99,7 +99,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--mag);background:#1814
 /* done */
 .done{text-align:center;padding:24px 0}
 .ring{width:76px;height:76px;margin:0 auto 32px;border-radius:0;display:grid;place-items:center;background:var(--mag)}
-.ring svg{width:32px;height:32px;stroke:var(--ink);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ring svg{width:32px;height:32px;stroke:var(--ink);stroke-width:2.6;fill:none;stroke-linecap:square;stroke-linejoin:miter}
 .done .lead{margin:0 auto 36px}
 .pill-line{border:1.5px solid rgba(236,231,234,.5)}
 .pill-line:hover{background:var(--text);color:var(--ink)}

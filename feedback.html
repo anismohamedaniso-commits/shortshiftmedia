@@ -31,7 +31,7 @@
     /* soft magenta glow backdrop */
     body::before {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background:url(media/brand/topo.webp) 0 0/1200px 1200px repeat; opacity:.035;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cpath d='M48 41v14M41 48h14' stroke='%23ece7ea' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") 0 0/96px 96px repeat; opacity:.07;
     }
     .wrap {
       position:relative; z-index:1;
@@ -203,7 +203,7 @@
       <div class="fb-submit">
         <button type="submit" class="btn" id="fb-btn">
           Send Feedback
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
         <p class="fb-error" id="fb-error"></p>
         <p class="fb-note">Your feedback goes straight to the Short Shift Media team.</p>
@@ -229,7 +229,7 @@
       { key:'Strategy',        name:'Strategy',         sub:'Marketing & direction' },
       { key:'Captions',        name:'Captions & Copy',  sub:'Writing & messaging' }
     ];
-    var STAR = '<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.06 6.6.86-4.86 4.55 1.24 6.53L12 17.9l-5.88 3.1 1.24-6.53L2.5 9.92l6.6-.86L12 2.5z" stroke-linejoin="round"/></svg>';
+    var STAR = '<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.06 6.6.86-4.86 4.55 1.24 6.53L12 17.9l-5.88 3.1 1.24-6.53L2.5 9.92l6.6-.86L12 2.5z" stroke-linejoin="miter"/></svg>';
     var ratings = {};
     var container = document.getElementById('pillars');
 
@@ -313,7 +313,7 @@
         } else { throw new Error('fail'); }
       } catch(_){
         err.textContent = 'Something went wrong. Please try again or email hello@shortshift.media';
-        btn.disabled=false; btn.innerHTML='Send Feedback <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        btn.disabled=false; btn.innerHTML='Send Feedback <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
       }
     });
   </script>
