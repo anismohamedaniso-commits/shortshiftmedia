@@ -27,7 +27,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cu
 :focus-visible{outline:2px solid var(--mag);outline-offset:3px}
 
 /* ---------- header ---------- */
-.top{position:fixed;z-index:20;left:0;right:0;top:0;padding:calc(16px + var(--st)) 24px 12px;background:var(--ink)}
+.top{position:fixed;z-index:20;left:0;right:0;top:0;padding:calc(16px + var(--st)) 24px 14px;background:var(--ink)}
 .top-in{max-width:600px;margin:0 auto}
 .row1{display:flex;justify-content:space-between;align-items:center}
 .logo{display:block;height:34px}
@@ -38,17 +38,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cu
 .reel span{display:block;height:20px;transition:transform .7s var(--ease)}
 .reel b{display:block;height:20px;font-weight:700}
 .scene-n i{font-style:normal;color:var(--line2)}
-.row2{display:flex;align-items:center;gap:14px;margin-top:14px}
-.bar{flex:1;height:6px;border-radius:1px;background:#1a1719;overflow:hidden}
-.fill{height:100%;width:0;background:repeating-linear-gradient(-55deg,var(--paper) 0 6px,var(--ink) 6px 12px);background-size:16.97px 100%;transition:width .9s var(--ease);animation:run 1.2s linear infinite}
-@keyframes run{to{background-position:16.97px 0}}
-.rec{display:flex;align-items:center;gap:7px;font:500 10px var(--mono);letter-spacing:.1em;color:var(--dim);white-space:nowrap}
-.rec i{width:7px;height:7px;border-radius:50%;background:var(--mag);animation:blink 1.6s steps(1) infinite}
-@keyframes blink{50%{opacity:.15}}
 
 /* ---------- screens ---------- */
 main{position:relative}
-.screen{display:none;min-height:100svh;padding:calc(124px + var(--st)) 24px calc(120px + var(--sb))}
+.screen{display:none;min-height:100svh;padding:calc(100px + var(--st)) 24px calc(120px + var(--sb))}
 .screen.on{display:block}
 .inner{max-width:600px;margin:0 auto}
 .screen.out{animation:out .26s var(--ease) both}
@@ -196,10 +189,6 @@ body.hide-dock .dock{transform:translateY(110%)}
       <div class="scene" aria-live="polite"><span id="scene-lbl">SCENE</span>
         <div class="scene-n"><span class="reel"><span id="reel"><b>01</b><b>02</b><b>03</b><b>04</b><b>05</b><b>OK</b><b>✓</b></span></span><i id="scene-of">/05</i></div>
       </div>
-    </div>
-    <div class="row2">
-      <div class="bar"><div class="fill" id="fill"></div></div>
-      <div class="rec" aria-hidden="true"><i></i>REC <span id="tc">00:00:00</span></div>
     </div>
   </div>
 </header>
@@ -378,10 +367,6 @@ const pid=String(1000+Math.floor(Math.random()*9000));
 
 scr.forEach(s=>s.querySelectorAll('.rv').forEach((el,i)=>el.style.setProperty('--d',i)));
 
-/* REC timecode */
-const t0=Date.now(),tc=$('tc'),p2=n=>String(n).padStart(2,'0');
-setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);tc.textContent=`${p2(Math.floor(s/3600))}:${p2(Math.floor(s/60)%60)}:${p2(s%60)}`},1000);
-
 /* take label decode */
 const GL='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#·';
 function scramble(el,text){
@@ -435,13 +420,12 @@ const recheck=e=>{const q=e.target.closest('.q.bad');q&&ok(q)&&q.classList.remov
 f.addEventListener('input',recheck);f.addEventListener('pick',recheck);
 
 /* chrome */
-const reel=$('reel'),fill=$('fill'),nt=$('nt');
+const reel=$('reel'),nt=$('nt');
 function label(t){if(nt.textContent===t)return;if(reduce){nt.textContent=t;return}nt.classList.add('swap');setTimeout(()=>{nt.textContent=t;nt.classList.remove('swap')},180)}
 function chrome(i){
   reel.style.transform=`translateY(${-Math.min(i,6)*20}px)`;
   $('scene-lbl').textContent=i<RV?'SCENE':(i===RV?'PLAYBACK':'WRAPPED');
   $('scene-of').style.visibility=i<RV?'visible':'hidden';
-  fill.style.width=(i>=RV?100:(i+1)*20)+'%';
   $('back').classList.toggle('gone',i===0);
   B.classList.toggle('hide-dock',i===DONE);
   label(i===RV?'Send application':(fromReview?'Back to review':'Next scene'));
