@@ -130,30 +130,15 @@ body.hide-dock .dock{transform:translateY(110%)}
 .crole{font-size:14px;color:#3d353b;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ccon{display:flex;justify-content:space-between;gap:10px;margin-top:12px;padding-top:9px;border-top:1px solid rgba(10,9,10,.15);font:400 10.5px var(--mono);color:#3d353b;white-space:nowrap}
 .ccon span{overflow:hidden;text-overflow:ellipsis}
-#review .stick{transform:rotate(-9deg);transition:transform .5s var(--ease)}
-#review .card:hover .stick{transform:rotate(-13deg)}
-#review .card{margin:64px 0 30px}
-#done .card{margin:8px 0 0}
+#done .card{max-width:310px;margin:44px auto 72px}
+#done .done-h{margin-top:0}
 
 /* ---------- review ---------- */
-.sum{border-top:1px solid var(--line)}
-.sec{border-bottom:1px solid var(--line);padding:14px 0}
-.sech{display:flex;justify-content:space-between;align-items:center}
-.sech b{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:500}
-.edit{min-height:40px;padding-left:16px;font:600 14.5px var(--body);color:var(--mag)}
-.kv{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.5fr);gap:12px;padding:4px 0;font-size:15px;line-height:1.4}
-.kv span:first-child{color:var(--dim)}
-.kv span:last-child{color:var(--soft);overflow-wrap:anywhere}
-.consent{display:flex;gap:14px;align-items:flex-start;width:100%;margin-top:26px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.45;color:var(--mute)}
+.consent{display:flex;gap:14px;align-items:flex-start;width:100%;margin-top:6px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.45;color:var(--mute)}
 .consent[aria-pressed=true]{color:var(--soft)}
 .consent[aria-pressed=true] .box{background:var(--mag);border-color:var(--mag);animation:tick .35s var(--ease)}
 .consent[aria-pressed=true] .box svg{stroke-dashoffset:0}
 .q.bad .consent{border-color:#5c2a45}
-
-/* ---------- wrap film ---------- */
-.film{position:fixed;inset:0;z-index:50;background:var(--ink);display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s}
-.film.on{opacity:1;visibility:visible;transition:opacity .15s}
-.film video{width:100%;height:100%;object-fit:contain;background:var(--ink)}
 
 /* ---------- done ---------- */
 #done{padding-top:calc(92px + var(--st))}
@@ -303,24 +288,6 @@ body.hide-dock .dock{transform:translateY(110%)}
     </div></div>
     <div class="q reveal" id="other-q"><div><label class="lbl" for="other">What else?</label><div class="fld"><input type="text" id="other" name="Looking for (other)" enterkeyhint="next"></div></div></div>
     <div class="q rv"><label class="lbl" for="heard">How did you hear about us? <span class="opt">Optional</span></label><div class="fld"><input type="text" id="heard" name="Heard about us" placeholder="Instagram, a friend" enterkeyhint="done"></div></div>
-  </div>
-</section>
-
-<section class="screen" id="review" data-take="Playback · Check the take">
-  <div class="inner">
-    <div class="take" data-scramble></div>
-    <h1><span class="ln"><span style="--l:0">Check the take.</span></span></h1>
-    <p class="sub rv">This is your card. Fix anything before we roll.</p>
-    <div class="card rv">
-      <div class="stick"></div>
-      <div class="cbody">
-        <div class="ctop"><img src="/media/brand/logo.png" alt="" width="137" height="160"><div class="cslate">SLATE<b class="js-slate">0000</b></div></div>
-        <div class="cname js-name"></div>
-        <div class="crole js-role"></div>
-        <div class="ccon"><span class="js-phone"></span><span class="js-city"></span></div>
-      </div>
-    </div>
-    <div class="sum rv" id="sum"></div>
     <div class="q rv" data-req="consent" id="consent-q"><button type="button" class="consent" id="consent" aria-pressed="false"><i class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><span>I'm 18 or older, and Short Shift Media can keep my details to contact me about projects.</span></button><p class="err">Please confirm to send.</p></div>
   </div>
 </section>
@@ -345,8 +312,6 @@ body.hide-dock .dock{transform:translateY(110%)}
 </form>
 </main>
 
-<div class="film" id="film" aria-hidden="true"><video id="wrapv" muted playsinline preload="none" src="/media/apply/wrap.mp4"></video></div>
-
 <nav class="dock" aria-label="Form navigation">
   <p class="dmsg" id="dmsg" role="alert"></p>
   <div class="dock-in">
@@ -358,8 +323,8 @@ body.hide-dock .dock{transform:translateY(110%)}
 <script>
 (()=>{
 const $=id=>document.getElementById(id),f=$('f'),B=document.body;
-const order=['s1','s2','s3','s4','s5','review','done'],RV=5,DONE=6;
-const scr=order.map($);let cur=0,busy=false,fromReview=false;
+const order=['s1','s2','s3','s4','s5','done'],LAST=4,DONE=5;
+const scr=order.map($);let cur=0,busy=false;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const TXT='input[type=text],input[type=email],input[type=tel],input[type=url],textarea';
 const pid=String(1000+Math.floor(Math.random()*9000));
@@ -422,12 +387,12 @@ f.addEventListener('input',recheck);f.addEventListener('pick',recheck);
 const reel=$('reel'),nt=$('nt');
 function label(t){if(nt.textContent===t)return;if(reduce){nt.textContent=t;return}nt.classList.add('swap');setTimeout(()=>{nt.textContent=t;nt.classList.remove('swap')},180)}
 function chrome(i){
-  reel.style.transform=`translateY(${-Math.min(i,6)*20}px)`;
-  $('scene-lbl').textContent=i<RV?'SCENE':(i===RV?'PLAYBACK':'WRAPPED');
-  $('scene-of').style.visibility=i<RV?'visible':'hidden';
+  reel.style.transform=`translateY(${-(i===DONE?6:i)*20}px)`;
+  $('scene-lbl').textContent=i===DONE?'WRAPPED':'SCENE';
+  $('scene-of').style.visibility=i===DONE?'hidden':'visible';
   $('back').classList.toggle('gone',i===0);
   B.classList.toggle('hide-dock',i===DONE);
-  label(i===RV?'Send application':(fromReview?'Back to review':'Next scene'));
+  label(i===LAST?'Send application':'Next scene');
   $('dmsg').textContent='';
   const tk=scr[i].querySelector('[data-scramble]');tk&&scramble(tk,scr[i].dataset.take);
 }
@@ -435,19 +400,18 @@ function go(n,back){
   if(busy||n===cur)return;busy=true;
   const a=scr[cur],b=scr[n];B.classList.toggle('rev',!!back);
   const swap=()=>{a.classList.remove('on','out');b.classList.add('on');cur=n;scrollTo(0,0);chrome(n);busy=false;
-    if(n===RV){fillCard(b);const v=$('wrapv');if(v.preload!=='auto'){v.preload='auto';v.load()}}if(n===DONE)wrap();
+    if(n===DONE){fillCard();wrap()}
     requestAnimationFrame(()=>b.querySelectorAll('.seg').forEach(moveSlider))};
   if(reduce)return swap();
   a.classList.add('out');setTimeout(swap,240);
 }
 $('next').addEventListener('click',()=>{
   if(busy)return;
-  if(cur===RV)return send();
   if(!validate(scr[cur]))return;
-  if(fromReview){fromReview=false;return go(RV)}
+  if(cur===LAST)return send();
   go(cur+1);
 });
-$('back').addEventListener('click',()=>{if(busy||cur===0)return;if(fromReview){fromReview=false;return go(RV,true)}go(cur-1,true)});
+$('back').addEventListener('click',()=>{if(busy||cur===0)return;go(cur-1,true)});
 f.addEventListener('keydown',e=>{
   if(e.key!=='Enter'||e.target.tagName!=='INPUT')return;e.preventDefault();
   const ins=[...scr[cur].querySelectorAll('input[type=text],input[type=email],input[type=tel],input[type=url]')].filter(i=>i.offsetParent&&getComputedStyle(i).visibility!=='hidden');
@@ -465,22 +429,13 @@ function collect(){
   return d;
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function fillCard(root){
+function fillCard(){
   const d=collect(),rs=picked(roles);
   document.querySelectorAll('.js-name').forEach(e=>e.textContent=d['Full name']||'');
   document.querySelectorAll('.js-role').forEach(e=>e.textContent=rs.slice(0,3).join(' · ')+(rs.length>3?` +${rs.length-3}`:''));
   document.querySelectorAll('.js-phone').forEach(e=>e.textContent=d['Phone / WhatsApp']||'');
   document.querySelectorAll('.js-city').forEach(e=>e.textContent=d['City']||'');
   document.querySelectorAll('.js-slate').forEach(e=>e.textContent=pid);
-  const secs=[['s1','About you'],['s2','Your craft'],['s3','Your work'],['s4','Rates & time'],['s5','Working together']];
-  $('sum').innerHTML=secs.map(([sid,t])=>{const rows=[];
-    $(sid).querySelectorAll('.q').forEach(q=>{if(!live(q))return;
-      const l=q.querySelector('.lbl');let k=l?l.firstChild.textContent.trim():(q.dataset.group==='Positions'?'Roles':'');
-      let v=q.dataset.group?[...q.querySelectorAll('[aria-pressed=true]')].map(b=>b.textContent.trim()).join(', '):'';
-      const i=q.querySelector(TXT);if(i&&i.value.trim())v=(v?v+', ':'')+i.value.trim();
-      if(v&&k)rows.push(`<div class="kv"><span>${esc(k)}</span><span>${esc(v)}</span></div>`)});
-    return `<div class="sec"><div class="sech"><b>${t}</b><button type="button" class="edit" data-edit="${order.indexOf(sid)}">Edit</button></div>${rows.join('')}</div>`}).join('');
-  $('sum').querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>{fromReview=true;go(+b.dataset.edit,true)}));
 }
 function wrap(){
   const now=new Date(),M=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -491,25 +446,14 @@ function wrap(){
 
 /* send: to the community manager, plus a backup copy */
 function send(){
-  if(!validate(scr[RV]))return;
   const d=collect(),btn=$('next');busy=true;btn.disabled=true;btn.classList.add('busy');label('Sending');
   const sp=document.createElement('i');sp.className='spin';btn.appendChild(sp);$('dmsg').textContent='';
   const subj=`Network application: ${d['Full name']} (${d['Positions']})`;
   const post=(u,o)=>fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).then(r=>r.json()).then(j=>{if(!(j.success===true||j.success==='true'))throw 0;return j});
   const toZeyad=post('https://formsubmit.co/ajax/zeyadelmeligy@gmail.com',{_subject:subj,_replyto:d['Email'],_template:'table',_honey:f.botcheck.checked?'bot':'','Slate no.':'SFN-'+pid,...d});
   const backup=post('https://api.web3forms.com/submit',{access_key:'3baead95-faee-416b-9f39-67f0230d1087',subject:'[Backup] '+subj,from_name:'Shift Freelance Network',replyto:d['Email'],botcheck:f.botcheck.checked,'Slate no.':'SFN-'+pid,...d});
-  const film=$('film'),v=$('wrapv');let filmDone=reduce;
-  const filmEnd=new Promise(res=>{
-    if(reduce)return res();
-    film.classList.add('on');v.currentTime=0;
-    const fin=()=>{filmDone=true;res()};
-    v.onended=fin;setTimeout(fin,4200);
-    const pp=v.play();pp&&pp.catch(()=>{film.classList.remove('on');fin()});
-  });
-  Promise.any([toZeyad,backup]).then(()=>filmEnd.then(()=>{busy=false;B.classList.remove('rev');
-      const a=scr[cur];a.classList.remove('on','out');scr[DONE].classList.add('on');cur=DONE;scrollTo(0,0);chrome(DONE);wrap();
-      requestAnimationFrame(()=>film.classList.remove('on'))}))
-    .catch(()=>{busy=false;film.classList.remove('on');v.pause();$('dmsg').textContent="That didn't go through. Try again, or WhatsApp us on +20 100 551 3922.";label('Send application')})
+  Promise.any([toZeyad,backup]).then(()=>{busy=false;go(DONE)})
+    .catch(()=>{busy=false;$('dmsg').textContent="That didn't go through. Try again, or WhatsApp us on +20 100 551 3922.";label('Send application')})
     .finally(()=>{btn.disabled=false;btn.classList.remove('busy');sp.remove()});
 }
 chrome(0);
